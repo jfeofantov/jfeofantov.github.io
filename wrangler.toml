@@ -1,2 +1,10 @@
 name = "primecoat"
 pages_build_output_dir = "out"
+compatibility_date = "2024-11-17"
+
+[pages]
+command = "npm run build"
+pages_build_output_dir = "out"
+
+[vars]
+# Add any environment variables here if needed
