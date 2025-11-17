@@ -10,7 +10,7 @@ const config: Config = {
       colors: {
         brand: {
           DEFAULT: '#0f172a',
-          accent: '#0ea5e9'
+          accent: '#f97316'
         }
       },
       boxShadow: {
