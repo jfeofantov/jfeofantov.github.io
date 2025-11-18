@@ -102,9 +102,10 @@ export default function WhatsAppForm({
       setFeedback(successMessage);
       setWhatsapp('');
       setConsent(false);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : 'failed to send';
       setStatus('error');
-      setFeedback(`Network error: ${error?.message || 'failed to send'}`);
+      setFeedback(`Network error: ${message}`);
     }
   };
 

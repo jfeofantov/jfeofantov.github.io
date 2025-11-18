@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import FadeIn from '../../components/FadeIn';
 
@@ -130,7 +131,14 @@ export default function AboutPage() {
           {team.map((member, index) => (
             <FadeIn key={member.name} delay={index * 80} className="flex flex-col rounded-[1.75rem] border border-white/70 bg-white/95 p-5 text-center shadow-[0_30px_70px_-55px_rgba(15,23,42,0.9)]">
               <div className="mx-auto h-32 w-32 overflow-hidden rounded-full border border-slate-100">
-                <img src={member.photo} alt={member.name} className="h-full w-full object-cover" loading="lazy" />
+                <Image
+                  src={member.photo}
+                  alt={member.name}
+                  width={128}
+                  height={128}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
               </div>
               <p className="mt-4 text-lg font-semibold text-slate-900">{member.name}</p>
               <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{member.role}</p>

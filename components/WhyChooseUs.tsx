@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ShieldCheck, Ruler, Clock3, Sparkles, Users, Leaf } from 'lucide-react';
+import { ShieldCheck, Ruler, Clock3, Leaf } from 'lucide-react';
 import FadeIn from './FadeIn';
 
 const reasons = [
