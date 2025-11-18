@@ -1,18 +1,18 @@
 import FadeIn from './FadeIn';
 
-const areas = [
-  'Chelsea',
-  'Kensington',
-  'Notting Hill',
-  'Mayfair',
-  'Marylebone',
-  'Shoreditch',
-  'Clapham',
-  'Islington',
-  'Richmond',
-  'Hampstead',
-  'Greenwich',
-  'Canary Wharf'
+const clusters = [
+  {
+    title: 'Central West',
+    areas: ['Chelsea', 'Kensington', 'Notting Hill', 'Mayfair']
+  },
+  {
+    title: 'Central East',
+    areas: ['Shoreditch', 'Islington', 'Canary Wharf', 'Greenwich']
+  },
+  {
+    title: 'South & North',
+    areas: ['Clapham', 'Richmond', 'Marylebone', 'Hampstead']
+  }
 ];
 
 export default function Areas() {
@@ -26,10 +26,20 @@ export default function Areas() {
             From heritage residences to new-build apartments, our mobile teams cover Central London and the surrounding boroughs.
           </p>
         </FadeIn>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {areas.map((area, index) => (
-            <FadeIn key={area} delay={index * 50}>
-              <div className="rounded-2xl border border-slate-100 bg-white px-6 py-4 text-center text-sm font-semibold text-slate-700">{area}</div>
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+          {clusters.map((cluster, index) => (
+            <FadeIn key={cluster.title} delay={index * 80}>
+              <article className="rounded-[1.75rem] border border-white/80 bg-white/95 p-6 text-left shadow-[0_35px_100px_-70px_rgba(15,23,42,0.8)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{cluster.title}</p>
+                <ul className="mt-4 space-y-3 text-sm text-slate-700">
+                  {cluster.areas.map((area) => (
+                    <li key={area} className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-slate-900" aria-hidden />
+                      <span className="font-semibold">{area}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
             </FadeIn>
           ))}
         </div>

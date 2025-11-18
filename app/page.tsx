@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 import Hero from '../components/Hero';
+import NeedPainter from '../components/NeedPainter';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Services from '../components/Services';
-import BeforeAfter from '../components/BeforeAfter';
+import MaterialBadges from '../components/MaterialBadges';
+import FAQs from '../components/FAQs';
+import Portfolio from '../components/Portfolio';
 import Reviews from '../components/Reviews';
 import Areas from '../components/Areas';
 import FinalCTA from '../components/FinalCTA';
+import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
   title: 'Prime Coat London | Painting & Decorating Specialists',
@@ -44,12 +48,16 @@ export default function HomePage() {
   return (
     <main className="pt-28">
       <Hero />
+      <NeedPainter />
       <WhyChooseUs />
       <Services />
-      <BeforeAfter />
+      <MaterialBadges />
+      <FAQs />
+      <Portfolio />
       <Reviews />
       <Areas />
       <FinalCTA />
+      <Footer />
     </main>
   );
 }

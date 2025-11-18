@@ -7,8 +7,8 @@ type HeroBadgesProps = {
 
 export default function HeroBadges({ embedded = false, className = '' }: HeroBadgesProps) {
   const badgeClasses = embedded
-    ? 'inline-flex min-w-[100px] items-center justify-center rounded-full border border-white/30 bg-white/15 px-2 py-1 text-center text-[7px] font-light uppercase tracking-[0.15em] text-white drop-shadow-sm sm:min-w-[120px] sm:px-3 sm:text-[9px]'
-    : 'inline-flex min-w-[110px] items-center justify-center rounded-full border border-[#c96527]/20 bg-white px-3 py-1.5 text-center text-[8px] font-light uppercase tracking-[0.2em] text-slate-700 shadow-[0_12px_35px_-28px_rgba(15,23,42,0.8)] sm:text-[11px]';
+    ? 'inline-flex min-w-[100px] items-center justify-center rounded-full border border-white/40 bg-white/60 px-2.5 py-1 text-center text-[7px] font-medium uppercase tracking-[0.15em] text-black/80 drop-shadow-sm sm:min-w-[120px] sm:px-3 sm:text-[9px]'
+    : 'inline-flex min-w-[110px] items-center justify-center rounded-full border border-[#c96527]/20 bg-white/80 px-3 py-1.5 text-center text-[8px] font-medium uppercase tracking-[0.2em] text-black shadow-[0_12px_35px_-28px_rgba(15,23,42,0.8)] sm:text-[11px]';
 
   const wrapClasses = embedded ? 'grid grid-cols-3 gap-1' : 'grid grid-cols-3 gap-2 px-4';
 

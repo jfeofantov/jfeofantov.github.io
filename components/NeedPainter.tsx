@@ -9,7 +9,7 @@ export default function NeedPainter() {
       <FadeIn className="mx-auto max-w-4xl space-y-5 text-center sm:space-y-6">
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#c96527]">Need a painter next day?</p>
         <h2 className="text-xl font-semibold text-slate-900 sm:text-3xl">Professional painters ready to transform your property.</h2>
-        <ul className="mt-4 space-y-3 text-left text-sm text-slate-700">
+        <ul className="mt-4 space-y-3 px-4 text-left text-sm text-slate-700 sm:px-0">
           {sellingPoints.map((point) => (
             <li key={point} className="flex items-center gap-3">
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#ffe7d4] text-sm font-semibold text-[#c96527]">✓</span>
