@@ -1,87 +1,89 @@
+"use client";
+
 import Image from 'next/image';
 import FadeIn from './FadeIn';
+import WhatsAppForm from './WhatsAppForm';
 
-const badges = [
-  'Colour Consultations',
-  'Dust-Free Sanding',
-  'Premium Pigments',
-  'On-Schedule Delivery'
-];
+// const stats = [
+//   { label: 'Restored heritage rooms', value: '120+' },
+//   { label: 'Dust-free prep hours', value: '8k' },
+//   { label: 'Homeowners delighted', value: '300+' }
+// ];
+
+const heroImage = '/hero-mobile.jpg'; // place the provided image in public/hero-mobile.jpg
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative overflow-hidden bg-slate-950 text-white">
-      <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-brand-accent/30 blur-[120px]" aria-hidden />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 rounded-full bg-amber-200/20 blur-[120px]" aria-hidden />
-      <div className="section-padding relative mx-auto flex max-w-6xl flex-col gap-12 lg:flex-row lg:items-center">
-        <FadeIn className="flex-1 space-y-6 text-center lg:text-left">
-          <div className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-white/70 lg:justify-start">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-accent" aria-hidden />
-            Prime Coat London
+    <section
+      id="hero"
+      className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-white via-[#fff3ed] to-white sm:min-h-[75vh]"
+    >
+      <div className="pointer-events-none absolute inset-0 sm:hidden" aria-hidden>
+        <div className="absolute inset-0 bg-white" />
+        <div
+          className="absolute inset-y-0 right-[-35%] w-[150%]"
+          style={{
+            backgroundImage: `url('${heroImage}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            clipPath: 'ellipse(115% 95% at 100% 50%)'
+          }}
+        >
+          <div className="absolute inset-0 rounded-l-[6rem] bg-gradient-to-l from-white via-white/80 to-transparent" />
+        </div>
+      </div>
+      <div className="pointer-events-none absolute -left-16 top-10 h-60 w-60 rounded-full bg-[#f7c4a3]/40 blur-[120px]" aria-hidden />
+      <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-[#f5c084]/50 blur-[120px]" aria-hidden />
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-8 px-4 pt-6 pb-8 sm:gap-10 sm:px-6 sm:pb-0 lg:flex-row lg:items-center lg:px-10">
+        <FadeIn className="mx-auto mb-8 w-full max-w-md space-y-6 rounded-[2rem] bg-black/5 p-6 text-left shadow-[0_25px_65px_-35px_rgba(15,23,42,0.45)] backdrop-blur-xl sm:mx-0 sm:mb-0 sm:max-w-none sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-none lg:w-1/2">
+          <div className="inline-flex items-center justify-start gap-1.5 rounded-full bg-white/90 px-2.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+            <span
+              className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.6)]"
+              aria-hidden
+            />
+            PAINTERS AVAILABLE 7 DAYS
           </div>
-          <h1 className="text-balance text-3xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-            Bespoke <span className="bg-gradient-to-r from-brand-accent to-amber-300 bg-clip-text text-transparent">Painting & Decorating</span> for Design-Led Spaces
-          </h1>
-          <p className="mx-auto max-w-2xl text-lg text-white/70 lg:mx-0">
-            We blend architectural precision with artisan finishes—bold feature walls, low-VOC systems, and immaculate surfaces that elevate every interior.
+          <h1 className="text-balance text-2xl font-black leading-tight text-[#c96527] sm:text-5xl">PAINTING AND DECORATING IN LONDON</h1>
+          <p className="text-[15px] leading-snug text-slate-800 sm:text-lg sm:leading-relaxed">
+            At Prime Coat London, we bring your vision to life with top-quality painting and decorating services. Trusted local decorators deliver outstanding results every time.
           </p>
-          <div className="flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
-            <a
-              href="https://wa.me/447700123456?text=Hi%20Prime%20Coat%20London,%20I%20need%20a%20painting%20quote."
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-950 transition hover:opacity-90"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Book a Colour Audit
-            </a>
+          <div className="space-y-4 pb-5 sm:flex sm:items-center sm:gap-4 sm:pb-16">
             <a
               href="#final-cta"
-              className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:border-white"
+              className="inline-flex w-full items-center justify-center rounded-full border border-black/60 bg-black/90 px-5 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-white shadow-lg shadow-black/20 transition hover:bg-black sm:w-auto"
             >
-              Discuss Your Project
+              Book a painter decorator
+            </a>
+            <a
+              href="#portfolio"
+              className="inline-flex w-full items-center justify-center rounded-full border border-[#c96527]/30 bg-white/70 px-5 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-[#c96527] shadow-[0_10px_35px_-25px_rgba(15,23,42,0.8)] transition hover:bg-white sm:w-auto"
+            >
+              View recent work
             </a>
           </div>
-          <div className="grid gap-4 pt-4 text-left sm:grid-cols-2">
-            <FadeIn delay={100} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60">Featured</p>
-              <p className="text-lg font-semibold">Microcement, Venetian plaster, bespoke palettes</p>
-            </FadeIn>
-            <FadeIn delay={200} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-xs uppercase tracking-[0.35em] text-white/60">Lead Time</p>
-              <p className="text-lg font-semibold">Site-ready crews in as little as 7 days</p>
-            </FadeIn>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3 pt-6 lg:justify-start">
-            {badges.map((badge, index) => (
-              <FadeIn key={badge} delay={120 * index} className="inline-block">
-                <span className="inline-flex items-center rounded-full border border-white/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white/80">
-                  {badge}
-                </span>
-              </FadeIn>
-            ))}
+        </FadeIn>
+        <FadeIn className="relative hidden justify-center lg:flex lg:w-1/2" delay={120}>
+          <div className="relative w-full max-w-sm">
+            <Image
+              src={heroImage}
+              alt="Decorator at work"
+              width={600}
+              height={720}
+              className="rounded-[2.5rem] object-cover shadow-[0_35px_70px_-50px_rgba(15,23,42,0.8)]"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-white/60" aria-hidden />
           </div>
         </FadeIn>
-        <FadeIn className="flex-1" delay={200}>
-          <div className="relative h-96 w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-white/10 to-white/5 p-1 shadow-[0_25px_60px_-25px_rgba(0,0,0,0.6)]">
-            <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
-              <Image
-                src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80"
-                alt="Prime Coat artisan applying accent colour on feature wall"
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/20 to-slate-950/60" aria-hidden />
-              <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-                <p className="text-xs uppercase tracking-[0.35em] text-white/60">Signature finish</p>
-                <p className="text-lg font-semibold text-white">Paint + texture systems curated for luxury interiors</p>
-              </div>
-            </div>
-            <div className="absolute -right-3 top-8 hidden w-36 rotate-6 rounded-2xl border border-white/10 bg-white/5 p-3 text-sm font-semibold text-white shadow-lg md:block">
-              <p className="text-xs uppercase tracking-[0.35em] text-brand-accent">2024</p>
-              <p>32 feature walls delivered in vibrant accent tones</p>
-            </div>
-          </div>
+      </div>
+      <div className="mx-auto mt-12 hidden max-w-5xl gap-6 px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:px-10">
+        <div />
+        <FadeIn delay={150}>
+          <WhatsAppForm
+            source="hero"
+            idPrefix="hero-whatsapp"
+            className="rounded-[2rem] border border-white/70 bg-white p-6 shadow-[0_25px_90px_-60px_rgba(15,23,42,0.8)]"
+          />
         </FadeIn>
       </div>
     </section>
