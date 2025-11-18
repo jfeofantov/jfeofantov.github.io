@@ -3,7 +3,7 @@ import FadeIn from './FadeIn';
 
 const reviews = [
   {
-    name: 'Charlotte, SW1',
+    name: 'Charlotte, SWsd',
     title: 'Flawless townhouse repaint',
     text: 'They protected our marble floors, repaired every hairline crack, and delivered the sharpest lines I have ever seen.'
   },
