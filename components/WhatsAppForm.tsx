@@ -14,6 +14,24 @@ type WhatsAppFormProps = {
   idPrefix?: string;
 };
 
+const WEBHOOK_URL = process.env.NEXT_PUBLIC_WHATSAPP_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/message';
+const MIN_DIGITS = 8;
+
+const normalizePhoneNumber = (value: string) => {
+  const digits = (value || '').replace(/\D/g, '');
+  if (!digits) return '';
+
+  if (digits.startsWith('0')) {
+    return `44${digits.slice(1)}`;
+  }
+
+  if (/^7\d{9}$/.test(digits)) {
+    return `44${digits}`;
+  }
+
+  return digits;
+};
+
 export default function WhatsAppForm({
   className = '',
   heading = 'Prefer WhatsApp?',
@@ -27,38 +45,30 @@ export default function WhatsAppForm({
 }: WhatsAppFormProps) {
   const [whatsapp, setWhatsapp] = useState('');
   const [consent, setConsent] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [sent, setSent] = useState(false);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error' | 'success'>('idle');
+  const [feedback, setFeedback] = useState<string | null>(null);
 
-  const handleWhatsAppSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (loading) return;
+  const handleWhatsAppSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (status === 'sending') return;
 
-    setError(null);
-    setSent(false);
-    setSuccessMessage(null);
+    setFeedback(null);
 
-    const raw = whatsapp || '';
-    let digits = raw.replace(/\D/g, '');
-
-    if (digits.startsWith('0')) {
-      digits = `44${digits.slice(1)}`;
-    } else if (/^7\d{9}$/.test(digits)) {
-      digits = `44${digits}`;
-    }
+    const digits = normalizePhoneNumber(whatsapp);
 
     if (!digits) {
-      setError('Please enter your WhatsApp number.');
+      setStatus('error');
+      setFeedback('Please enter your WhatsApp number.');
       return;
     }
     if (!consent) {
-      setError('Please accept the terms and conditions to proceed.');
+      setStatus('error');
+      setFeedback('Please accept the terms and conditions to proceed.');
       return;
     }
-    if (digits.length < 8) {
-      setError('Please enter a valid phone number including country code.');
+    if (digits.length < MIN_DIGITS) {
+      setStatus('error');
+      setFeedback('Please enter a valid phone number including country code.');
       return;
     }
 
@@ -70,8 +80,8 @@ export default function WhatsAppForm({
     };
 
     try {
-      setLoading(true);
-      const res = await fetch('https://eugenefeo.app.n8n.cloud/webhook-test/message', {
+      setStatus('sending');
+      const res = await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -79,52 +89,66 @@ export default function WhatsAppForm({
 
       if (!res.ok) {
         const text = await res.text().catch(() => '');
-        setError(`Webhook error: ${res.status} ${res.statusText} ${text}`);
+        setStatus('error');
+        setFeedback(`Webhook error: ${res.status} ${res.statusText} ${text}`.trim());
         return;
       }
 
       const data = await res.json().catch(() => null);
       const messageFromWebhook = data && typeof data.message === 'string' ? data.message : null;
-      const message = messageFromWebhook || 'Thank you — we will contact you shortly.';
-      setSuccessMessage(message);
-      setSent(true);
+      const successMessage = messageFromWebhook || 'Thank you — we will contact you shortly.';
+
+      setStatus('success');
+      setFeedback(successMessage);
       setWhatsapp('');
       setConsent(false);
-    } catch (err: any) {
-      setError(`Network error: ${err?.message || 'failed to send'}`);
-    } finally {
-      setLoading(false);
+    } catch (error: any) {
+      setStatus('error');
+      setFeedback(`Network error: ${error?.message || 'failed to send'}`);
     }
   };
 
   const inputId = `${idPrefix}-input`;
+  const feedbackId = `${idPrefix}-feedback`;
+  const isSending = status === 'sending';
+  const isError = status === 'error';
+  const feedbackClass =
+    status === 'success'
+      ? 'text-center text-sm text-emerald-600'
+      : 'text-center text-sm text-rose-600';
 
   return (
     <div className={className}>
       {heading ? <p className={headingClassName}>{heading}</p> : null}
       {description ? <p className={descriptionClassName}>{description}</p> : null}
-      <form onSubmit={handleWhatsAppSubmit} className="mt-4 space-y-3">
+      <form onSubmit={handleWhatsAppSubmit} className="mt-4 space-y-3" noValidate>
         <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner">
-          <span className="flex items-center gap-2 px-1 text-base">🇬🇧 <span className="font-medium">+44</span></span>
+          <span className="flex items-center gap-2 px-1 text-base" aria-hidden>
+            🇬🇧 <span className="font-medium">+44</span>
+          </span>
           <input
             id={inputId}
             name={inputId}
             type="tel"
             value={whatsapp}
-            onChange={(e) => setWhatsapp(e.target.value)}
+            onChange={(event) => setWhatsapp(event.target.value)}
             placeholder="7700 123456"
             className="flex-1 bg-transparent text-sm placeholder-slate-400 focus:outline-none"
             aria-label="WhatsApp number"
+            aria-describedby={feedback ? feedbackId : undefined}
+            aria-invalid={isError || undefined}
+            autoComplete="tel-national"
+            inputMode="tel"
           />
         </div>
-        <button type="submit" className={buttonClassName} disabled={loading}>
-          {loading ? 'Sending…' : buttonLabel}
+        <button type="submit" className={buttonClassName} disabled={isSending}>
+          {isSending ? 'Sending…' : buttonLabel}
         </button>
         <label className="flex items-center justify-center gap-2 text-[11px] text-slate-600">
           <input
             type="checkbox"
             checked={consent}
-            onChange={(e) => setConsent(e.target.checked)}
+            onChange={(event) => setConsent(event.target.checked)}
             className="h-4 w-4 rounded border-slate-300 text-[#c96527] focus:ring-[#c96527]/30"
             aria-required
           />
@@ -135,8 +159,9 @@ export default function WhatsAppForm({
             </a>
           </span>
         </label>
-        {error && <p className="text-sm text-rose-600">{error}</p>}
-        {sent && successMessage ? <p className="text-center text-sm text-emerald-600">{successMessage}</p> : null}
+        <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem]">
+          {feedback ? <p className={feedbackClass}>{feedback}</p> : null}
+        </div>
       </form>
     </div>
   );
