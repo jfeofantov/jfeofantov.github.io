@@ -1,15 +1,48 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import Hero from '../components/Hero';
 import NeedPainter from '../components/NeedPainter';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Services from '../components/Services';
 import MaterialBadges from '../components/MaterialBadges';
-import FAQs from '../components/FAQs';
-import Portfolio from '../components/Portfolio';
-import Reviews from '../components/Reviews';
 import Areas from '../components/Areas';
-import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
+
+const FAQsSection = dynamic(() => import('../components/FAQs'), {
+  ssr: false,
+  loading: () => (
+    <section className="section-padding text-center text-slate-400" aria-live="polite">
+      Loading FAQs…
+    </section>
+  )
+});
+
+const PortfolioSection = dynamic(() => import('../components/Portfolio'), {
+  ssr: false,
+  loading: () => (
+    <section className="section-padding text-center text-slate-400" aria-live="polite">
+      Loading portfolio…
+    </section>
+  )
+});
+
+const ReviewsSection = dynamic(() => import('../components/Reviews'), {
+  ssr: false,
+  loading: () => (
+    <section className="section-padding text-center text-slate-400" aria-live="polite">
+      Loading testimonials…
+    </section>
+  )
+});
+
+const FinalCTASection = dynamic(() => import('../components/FinalCTA'), {
+  ssr: false,
+  loading: () => (
+    <section className="section-padding text-center text-slate-400" aria-live="polite">
+      Loading contact form…
+    </section>
+  )
+});
 
 export const metadata: Metadata = {
   title: 'Prime Coat London | Painting & Decorating Specialists',
@@ -52,11 +85,11 @@ export default function HomePage() {
       <WhyChooseUs />
       <Services />
       <MaterialBadges />
-      <FAQs />
-      <Portfolio />
-      <Reviews />
+      <FAQsSection />
+      <PortfolioSection />
+      <ReviewsSection />
       <Areas />
-      <FinalCTA />
+      <FinalCTASection />
       <Footer />
     </main>
   );
