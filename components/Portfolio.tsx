@@ -139,7 +139,7 @@ export default function Portfolio() {
             className="relative w-full max-w-3xl rounded-[2rem] border border-white/30 bg-white p-6 text-slate-900 shadow-[0_35px_85px_-45px_rgba(15,23,42,0.95)] max-h-[calc(100vh-5rem)] overflow-y-auto"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 flex justify-end bg-gradient-to-b from-white to-white/70 pb-4">
+            <div className="sticky top-2 z-10 flex justify-end pb-2">
               <button
                 type="button"
                 onClick={closeProject}
