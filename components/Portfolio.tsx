@@ -129,24 +129,26 @@ export default function Portfolio() {
       </div>
       {activeProject ? (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/70 px-4 py-10"
+          className="fixed inset-0 z-[60] flex items-center justify-center overflow-y-auto bg-slate-900/70 px-4 py-10"
           role="dialog"
           aria-modal="true"
           aria-labelledby="portfolio-dialog-title"
           onClick={closeProject}
         >
           <div
-            className="relative w-full max-w-3xl rounded-[2rem] border border-white/30 bg-white p-6 text-slate-900 shadow-[0_35px_85px_-45px_rgba(15,23,42,0.95)]"
+            className="relative w-full max-w-3xl rounded-[2rem] border border-white/30 bg-white p-6 text-slate-900 shadow-[0_35px_85px_-45px_rgba(15,23,42,0.95)] max-h-[calc(100vh-5rem)] overflow-y-auto"
             onClick={(event) => event.stopPropagation()}
           >
-            <button
-              type="button"
-              onClick={closeProject}
-              className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
-              aria-label="Close portfolio details"
-            >
-              <X className="h-5 w-5" />
-            </button>
+            <div className="sticky top-0 z-10 flex justify-end bg-gradient-to-b from-white to-white/70 pb-4">
+              <button
+                type="button"
+                onClick={closeProject}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:border-slate-900 hover:text-slate-900"
+                aria-label="Close portfolio details"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
             <div className="space-y-2">
               <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-slate-500">{activeProject.location}</p>
               <h3 id="portfolio-dialog-title" className="text-2xl font-semibold text-slate-900">

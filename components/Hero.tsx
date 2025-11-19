@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import FadeIn from './FadeIn';
 import HeroBadges from './HeroBadges';
-import WhatsAppForm from './WhatsAppForm';
 
 // const stats = [
 //   { label: 'Restored heritage rooms', value: '120+' },
@@ -76,16 +75,6 @@ export default function Hero() {
             />
             <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-white/60" aria-hidden />
           </div>
-        </FadeIn>
-      </div>
-      <div className="mx-auto mt-12 hidden max-w-5xl gap-6 px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:px-10">
-        <div />
-        <FadeIn delay={150}>
-          <WhatsAppForm
-            source="hero"
-            idPrefix="hero-whatsapp"
-            className="rounded-[2rem] border border-white/70 bg-white p-6 shadow-[0_25px_90px_-60px_rgba(15,23,42,0.8)]"
-          />
         </FadeIn>
       </div>
     </section>

@@ -123,7 +123,7 @@ export default function WhatsAppForm({
       {heading ? <p className={headingClassName}>{heading}</p> : null}
       {description ? <p className={descriptionClassName}>{description}</p> : null}
       <form onSubmit={handleWhatsAppSubmit} className="mt-4 space-y-3" noValidate>
-        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm shadow-inner">
+        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-base shadow-inner">
           <span className="flex items-center gap-2 px-1 text-base" aria-hidden>
             🇬🇧 <span className="font-medium">+44</span>
           </span>
@@ -134,7 +134,7 @@ export default function WhatsAppForm({
             value={whatsapp}
             onChange={(event) => setWhatsapp(event.target.value)}
             placeholder="7700 123456"
-            className="flex-1 bg-transparent text-sm placeholder-slate-400 focus:outline-none"
+            className="flex-1 bg-transparent text-base placeholder-slate-400 focus:outline-none"
             aria-label="WhatsApp number"
             aria-describedby={feedback ? feedbackId : undefined}
             aria-invalid={isError || undefined}
