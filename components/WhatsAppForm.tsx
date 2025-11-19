@@ -1,6 +1,7 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
+import { countryDialCodes, type CountryDialCode } from '../lib/countryDialCodes';
 
 type WhatsAppFormProps = {
   className?: string;
@@ -17,19 +18,27 @@ type WhatsAppFormProps = {
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_WHATSAPP_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/message';
 const MIN_DIGITS = 8;
 
-const normalizePhoneNumber = (value: string) => {
+const normalizePhoneNumber = (value: string, country: CountryDialCode) => {
   const digits = (value || '').replace(/\D/g, '');
   if (!digits) return '';
 
-  if (digits.startsWith('0')) {
-    return `44${digits.slice(1)}`;
+  if (country.code === 'GB') {
+    if (digits.startsWith('0')) {
+      return `44${digits.slice(1)}`;
+    }
+    if (digits.startsWith('44')) {
+      return digits;
+    }
+    if (/^7\d{9}$/.test(digits)) {
+      return `44${digits}`;
+    }
   }
 
-  if (/^7\d{9}$/.test(digits)) {
-    return `44${digits}`;
+  if (digits.startsWith(country.dialCode)) {
+    return digits;
   }
 
-  return digits;
+  return `${country.dialCode}${digits}`;
 };
 
 export default function WhatsAppForm({
@@ -47,6 +56,11 @@ export default function WhatsAppForm({
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<'idle' | 'sending' | 'error' | 'success'>('idle');
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [countryCode, setCountryCode] = useState<CountryDialCode['code']>('GB');
+
+  const options = useMemo(() => countryDialCodes.slice().sort((a, b) => a.label.localeCompare(b.label)), []);
+
+  const selectedCountry = options.find((option) => option.code === countryCode) ?? options[0];
 
   const handleWhatsAppSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,7 +68,7 @@ export default function WhatsAppForm({
 
     setFeedback(null);
 
-    const digits = normalizePhoneNumber(whatsapp);
+    const digits = normalizePhoneNumber(whatsapp, selectedCountry);
 
     if (!digits) {
       setStatus('error');
@@ -123,25 +137,45 @@ export default function WhatsAppForm({
       {heading ? <p className={headingClassName}>{heading}</p> : null}
       {description ? <p className={descriptionClassName}>{description}</p> : null}
       <form onSubmit={handleWhatsAppSubmit} className="mt-4 space-y-3" noValidate>
-        <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-lg shadow-inner">
-          <span className="flex items-center gap-2 px-1 text-lg" aria-hidden>
-            🇬🇧 <span className="font-medium">+44</span>
-          </span>
-          <input
-            id={inputId}
-            name={inputId}
-            type="tel"
-            value={whatsapp}
-            onChange={(event) => setWhatsapp(event.target.value)}
-            placeholder="7700 123456"
-            className="flex-1 bg-transparent text-lg placeholder-slate-400 focus:outline-none"
-            aria-label="WhatsApp number"
-            aria-describedby={feedback ? feedbackId : undefined}
-            aria-invalid={isError || undefined}
-            autoComplete="tel-national"
-            inputMode="tel"
-            pattern="[0-9]*"
-          />
+        <div className="flex flex-col gap-2 rounded-3xl border border-slate-200 bg-white px-3 py-3 text-base shadow-inner sm:flex-row sm:items-center">
+          <label htmlFor={`${idPrefix}-country`} className="sr-only">
+            Country
+          </label>
+          <div className="relative w-full sm:w-60">
+            <select
+              id={`${idPrefix}-country`}
+              value={countryCode}
+              onChange={(event) => setCountryCode(event.target.value as CountryDialCode['code'])}
+              className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 pr-7 text-sm font-semibold text-slate-700"
+            >
+              {options.map((option) => (
+                <option key={option.code} value={option.code}>
+                  {option.label} (+{option.dialCode})
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-500">▾</span>
+          </div>
+          <div className="flex w-full items-center gap-2 rounded-2xl border border-slate-100 bg-white px-3 py-2 text-base text-slate-700 sm:flex-1">
+            <span className="font-semibold" aria-hidden>
+              +{selectedCountry.dialCode}
+            </span>
+            <input
+              id={inputId}
+              name={inputId}
+              type="tel"
+              value={whatsapp}
+              onChange={(event) => setWhatsapp(event.target.value)}
+              placeholder="Enter number"
+              className="min-w-[120px] flex-1 bg-transparent text-base placeholder-slate-400 focus:outline-none"
+              aria-label="WhatsApp number"
+              aria-describedby={feedback ? feedbackId : undefined}
+              aria-invalid={isError || undefined}
+              autoComplete="tel-national"
+              inputMode="tel"
+              pattern="[0-9]*"
+            />
+          </div>
         </div>
         <button type="submit" className={buttonClassName} disabled={isSending}>
           {isSending ? 'Sending…' : buttonLabel}
