@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
-export const revalidate = false;
+export const revalidate = 86400; // regenerate daily
 
 const baseUrl = 'https://primecoatlondon.com';
 
