@@ -1,23 +1,6 @@
 import { Star } from 'lucide-react';
 import FadeIn from './FadeIn';
-
-const reviews = [
-  {
-    name: 'Charlotte, SWsd',
-    title: 'Flawless townhouse repaint',
-    text: 'They protected our marble floors, repaired every hairline crack, and delivered the sharpest lines I have ever seen.'
-  },
-  {
-    name: 'Ethan, Property Manager',
-    title: 'Reliable partner for multi-unit works',
-    text: 'Prime Coat London handles our rental refreshes with speed and consistent quality, even on tight turnarounds.'
-  },
-  {
-    name: 'Mae, Interior Designer',
-    title: 'Attention to detail rivals our studio',
-    text: 'Their artisans understood the mood boards instantly and produced luxury finishes our clients love.'
-  }
-];
+import { reviews } from '../lib/content';
 
 export default function Reviews() {
   return (

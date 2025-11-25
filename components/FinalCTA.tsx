@@ -3,15 +3,55 @@
 import { useState } from 'react';
 import FadeIn from './FadeIn';
 
+const CONTACT_WEBHOOK_URL = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/contact';
+
 export default function FinalCTA() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [feedback, setFeedback] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFeedback(null);
+
+    if (!name.trim() || !email.trim()) {
+      setStatus('error');
+      setFeedback('Please share your name and an email or phone number so we can reach you.');
+      return;
+    }
+
+    const payload = {
+      name: name.trim(),
+      contact: email.trim(),
+      message: message.trim(),
+      source: 'final-cta'
+    };
+
+    try {
+      setStatus('sending');
+      const res = await fetch(CONTACT_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const text = (await res.text().catch(() => '')).trim();
+        throw new Error(`Webhook error: ${res.status} ${res.statusText}${text ? ` ${text}` : ''}`);
+      }
+
+      setStatus('success');
+      setFeedback('Thank you — we will call or email you back within one business day.');
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (error: unknown) {
+      const messageText = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+      setStatus('error');
+      setFeedback(messageText);
+    }
   };
 
   return (
@@ -24,7 +64,7 @@ export default function FinalCTA() {
         </p>
       </FadeIn>
       <FadeIn className="mx-auto mt-8 w-full max-w-2xl rounded-[1.75rem] border border-white/20 bg-white/5 p-6 shadow-[0_25px_90px_-60px_rgba(15,23,42,0.9)]">
-        <form onSubmit={handleSubmit} className="grid gap-4 text-left text-sm text-slate-900">
+        <form onSubmit={handleSubmit} className="grid gap-4 text-left text-sm text-slate-900" noValidate>
           <div className="flex flex-col gap-2 text-white">
             <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
               Name
@@ -69,11 +109,14 @@ export default function FinalCTA() {
           </div>
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+            className="inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={status === 'sending'}
           >
-            Request Callback
+            {status === 'sending' ? 'Sending…' : 'Request Callback'}
           </button>
-          {submitted && <p className="text-center text-sm text-white/80">Thanks! We’ll respond within one business day.</p>}
+          <p className={`text-center text-sm ${status === 'success' ? 'text-emerald-300' : 'text-rose-200'}`} aria-live="polite">
+            {feedback}
+          </p>
         </form>
       </FadeIn>
     </section>

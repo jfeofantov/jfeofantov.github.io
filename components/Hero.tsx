@@ -1,5 +1,3 @@
-"use client";
-
 import Image from 'next/image';
 import FadeIn from './FadeIn';
 import HeroBadges from './HeroBadges';
@@ -11,6 +9,7 @@ import HeroBadges from './HeroBadges';
 // ];
 
 const heroImage = '/hero-mobile.jpg'; // place the provided image in public/hero-mobile.jpg
+const heroAlt = 'Prime Coat London decorator preparing a living room wall for painting';
 
 export default function Hero() {
   return (
@@ -21,15 +20,11 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 sm:hidden" aria-hidden>
         <div className="absolute inset-0 bg-white" />
         <div
-          className="absolute inset-y-0 right-[-35%] w-[150%]"
-          style={{
-            backgroundImage: `url('${heroImage}')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            clipPath: 'ellipse(115% 95% at 100% 50%)'
-          }}
+          className="absolute inset-y-0 right-[-35%] w-[150%] overflow-hidden rounded-l-[6rem]"
+          style={{ clipPath: 'ellipse(115% 95% at 100% 50%)' }}
         >
-          <div className="absolute inset-0 rounded-l-[6rem] bg-gradient-to-l from-white via-white/80 to-transparent" />
+          <Image src={heroImage} alt={heroAlt} fill priority fetchPriority="high" className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 bg-gradient-to-l from-white via-white/80 to-transparent" />
         </div>
       </div>
       <div className="pointer-events-none absolute -left-16 top-10 h-60 w-60 rounded-full bg-[#f7c4a3]/40 blur-[120px]" aria-hidden />
@@ -61,21 +56,28 @@ export default function Hero() {
               View recent work
             </a>
           </div>
-          <HeroBadges embedded />
+          <div className="lg:hidden">
+            <HeroBadges embedded />
+          </div>
         </FadeIn>
         <FadeIn className="relative hidden justify-center lg:flex lg:w-1/2" delay={120}>
           <div className="relative w-full max-w-sm">
-            <Image
-              src={heroImage}
-              alt="Decorator at work"
-              width={600}
-              height={720}
-              className="rounded-[2.5rem] object-cover shadow-[0_35px_70px_-50px_rgba(15,23,42,0.8)]"
-              priority
-            />
+              <Image
+                src={heroImage}
+                alt={heroAlt}
+                width={600}
+                height={720}
+                className="rounded-[2.5rem] object-cover shadow-[0_35px_70px_-50px_rgba(15,23,42,0.8)]"
+                priority
+                fetchPriority="high"
+                sizes="(max-width:1024px) 80vw, 600px"
+              />
             <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] border border-white/60" aria-hidden />
           </div>
         </FadeIn>
+      </div>
+      <div className="hidden px-4 pb-10 lg:block">
+        <HeroBadges className="mx-auto max-w-4xl" />
       </div>
     </section>
   );

@@ -14,6 +14,8 @@ const navLinks = [
   { label: 'Contact', href: '#final-cta' }
 ];
 
+const CALL_NUMBER = '+442036950210';
+
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -68,6 +70,12 @@ export default function NavBar() {
           </div>
         </Link>
         <div className="flex items-center gap-2">
+          <a
+            href={`tel:${CALL_NUMBER}`}
+            className="hidden items-center rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-900 transition hover:border-slate-900 hover:bg-slate-50 lg:inline-flex"
+          >
+            Call {CALL_NUMBER.replace('+44', '+44 ')}
+          </a>
           <a
             href="https://wa.me/447700123456?text=Hi%20Prime%20Coat%20London,%20I%E2%80%99d%20like%20a%20quote."
             className="rounded-full bg-[#F38B3E] px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:opacity-90"
@@ -128,7 +136,7 @@ export default function NavBar() {
             </nav>
             <div className="mt-5 flex flex-col gap-3">
               <a
-                href="tel:+442036950210"
+                href={`tel:${CALL_NUMBER}`}
                 className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-900 transition hover:border-slate-900"
                 onClick={() => handleNavClick()}
               >
