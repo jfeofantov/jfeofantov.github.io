@@ -1,17 +1,18 @@
 import { faqs, reviews } from '../lib/content';
+import { PHONE_NUMBER_DISPLAY } from '../lib/contact';
 
-const siteUrl = 'https://primecoatlondon.com';
-const phone = '+44 2036 950210';
+const siteUrl = 'https://primecoatlondon.co.uk';
+const phone = PHONE_NUMBER_DISPLAY;
 
 const structuredData = [
   {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'Prime Coat London',
-    image: 'https://primecoatlondon.com/hero-mobile.jpg',
+    image: 'https://primecoatlondon.co.uk/hero-mobile.jpg',
     url: siteUrl,
     telephone: phone,
-    email: 'hello@primecoatlondon.com',
+    email: 'hello@primecoatlondon.co.uk',
     priceRange: '££',
     description: 'Boutique painting, decorating, and plaster restoration specialists covering Greater London.',
     address: {

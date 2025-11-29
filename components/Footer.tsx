@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import FadeIn from './FadeIn';
+import { PHONE_NUMBER_DISPLAY, PHONE_NUMBER_LINK, WHATSAPP_NUMBER_DISPLAY } from '../lib/contact';
 
 const navigation = [
-  { label: 'Why Us', href: '#why-us' },
+  { label: 'Offer', href: '#offer' },
   { label: 'Services', href: '#services' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Reviews', href: '#reviews' },
   { label: 'Areas', href: '#areas' },
-  { label: 'Contact', href: '#final-cta' }
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'FAQs', href: '#faqs' },
+  { label: 'Contact', href: '#contact' }
 ];
 
 const policies = [
@@ -24,20 +25,21 @@ export default function Footer() {
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-white/60">Prime Coat London</p>
             <p className="mt-4 text-base text-white/80">
-              Painting & decorating specialists delivering boutique finishes across Central London. Fully insured, CIS registered, and available seven days.
+              Painting & decorating specialists keeping London projects on schedule with meticulous prep, dust-free systems, and proactive communication.
             </p>
             <div className="mt-6 space-y-2 text-sm text-white/80">
               <p>📍 Belgravia, SW1 — mobile crews city-wide</p>
               <p>
                 📞{' '}
-                <a href="tel:+442036950210" className="underline decoration-white/40 decoration-dotted underline-offset-4">
-                  +44 2036 950210
+                <a href={`tel:${PHONE_NUMBER_LINK}`} className="underline decoration-white/40 decoration-dotted underline-offset-4">
+                  {PHONE_NUMBER_DISPLAY}
                 </a>
               </p>
+              <p>💬 WhatsApp: {WHATSAPP_NUMBER_DISPLAY}</p>
               <p>
                 ✉️{' '}
-                <a href="mailto:hello@primecoatlondon.com" className="underline decoration-white/40 decoration-dotted underline-offset-4">
-                  hello@primecoatlondon.com
+                <a href="mailto:hello@primecoatlondon.co.uk" className="underline decoration-white/40 decoration-dotted underline-offset-4">
+                  hello@primecoatlondon.co.uk
                 </a>
               </p>
               <p>VAT: GB123456789 • Company No. 09876543</p>
@@ -71,6 +73,11 @@ export default function Footer() {
                 </li>
                 <li>
                   <span className="text-white/70">Ad disclosures:</span> All testimonials verified; materials supplied at trade pricing.
+                </li>
+                <li>
+                  <Link href="/about" className="transition hover:text-white">
+                    Meet the team
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -18,8 +18,12 @@ html {
 }
 
 p {
-  font-family: var(--font-serif), 'Playfair Display', 'Times New Roman', serif;
+  font-family: var(--font-sans), 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   letter-spacing: 0.01em;
+}
+
+#hero p {
+  font-family: var(--font-sans), 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .text-balance {
@@ -51,24 +55,114 @@ p {
 .fade-in {
   opacity: 0;
   transform: translateY(12px);
-  animation: fadeInUp 0.8s ease forwards;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-@keyframes fadeInUp {
+.fade-in-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hover-lift {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.spotlight {
+  position: absolute;
+  inset: -30% -20% auto;
+  height: 60%;
+  background: radial-gradient(circle at 30% 40%, rgba(251, 191, 36, 0.15), rgba(255, 255, 255, 0) 55%);
+  filter: blur(60px);
+  animation: pulseGlow 9s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
   from {
-    opacity: 0;
-    transform: translateY(16px);
+    opacity: 0.2;
+    transform: translate3d(-8px, 4px, 0) scale(1);
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 0.35;
+    transform: translate3d(12px, -6px, 0) scale(1.05);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
-    animation: none;
+    transition: none;
     opacity: 1;
     transform: none;
+  }
+  .fade-in-visible {
+    opacity: 1;
+    transform: none;
+  }
+  .hover-lift,
+  .hover-lift:hover,
+  .spotlight {
+    transition: none;
+    animation: none;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.border-animated {
+  position: relative;
+  padding: 2px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 45deg, #f59e0b, #fcd34d, #f59e0b);
+  animation: spinBorder 14s linear infinite;
+  opacity: 0.85;
+}
+
+.border-animated-inner {
+  position: relative;
+  border-radius: 14px;
+  background: white;
+  padding: 10px;
+  z-index: 1;
+}
+
+@keyframes spinBorder {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (hover: hover) {
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px -28px rgba(15, 23, 42, 0.35);
+  }
+}
+
+@media (hover: none) {
+  .hover-lift {
+    box-shadow: none;
+  }
+  .hover-lift:active {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px -18px rgba(15, 23, 42, 0.25);
+  }
+  .border-animated::before {
+    animation-duration: 18s;
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-animated {
+    animation: none;
+  }
+  .border-animated::before {
+    animation: none;
   }
 }

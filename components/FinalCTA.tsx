@@ -2,12 +2,17 @@
 
 import { useState } from 'react';
 import FadeIn from './FadeIn';
+import { WHATSAPP_HOURS, WHATSAPP_NUMBER_DISPLAY, buildWhatsAppLink } from '../lib/contact';
 
 const CONTACT_WEBHOOK_URL = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/contact';
+const contactWhatsAppLink = buildWhatsAppLink("Hi Prime Coat London, I'm sharing photos for a quick painting quote.");
 
 export default function FinalCTA() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [propertyType, setPropertyType] = useState('');
+  const [timeline, setTimeline] = useState('');
+  const [postcode, setPostcode] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [feedback, setFeedback] = useState<string | null>(null);
@@ -25,8 +30,11 @@ export default function FinalCTA() {
     const payload = {
       name: name.trim(),
       contact: email.trim(),
+      propertyType: propertyType.trim(),
+      timeline: timeline.trim(),
+      postcode: postcode.trim(),
       message: message.trim(),
-      source: 'final-cta'
+      source: 'contact-section'
     };
 
     try {
@@ -46,6 +54,9 @@ export default function FinalCTA() {
       setFeedback('Thank you — we will call or email you back within one business day.');
       setName('');
       setEmail('');
+      setPropertyType('');
+      setTimeline('');
+      setPostcode('');
       setMessage('');
     } catch (error: unknown) {
       const messageText = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
@@ -55,70 +66,163 @@ export default function FinalCTA() {
   };
 
   return (
-    <section id="final-cta" className="section-padding bg-slate-900 text-white">
-      <FadeIn className="mx-auto max-w-4xl text-center space-y-4">
-        <p className="text-sm font-semibold uppercase tracking-[0.35em] text-white/60">Let’s Talk</p>
-        <h2 className="text-balance text-3xl font-semibold sm:text-4xl">Ready to Transform Your Home?</h2>
-        <p className="text-balance text-base text-white/80">
-          Share your project photos, schedule a same-week walk-through, or ring us for immediate assistance.
-        </p>
-      </FadeIn>
-      <FadeIn className="mx-auto mt-8 w-full max-w-2xl rounded-[1.75rem] border border-white/20 bg-white/5 p-6 shadow-[0_25px_90px_-60px_rgba(15,23,42,0.9)]">
-        <form onSubmit={handleSubmit} className="grid gap-4 text-left text-sm text-slate-900" noValidate>
-          <div className="flex flex-col gap-2 text-white">
-            <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
-              Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="rounded-2xl border border-white/40 bg-white/10 px-4 py-2 text-base text-white placeholder-white/50 outline-none focus:border-white"
-              placeholder="Your name"
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-2 text-white">
-            <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
-              Email or Phone
-            </label>
-            <input
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="rounded-2xl border border-white/40 bg-white/10 px-4 py-2 text-base text-white placeholder-white/50 outline-none focus:border-white"
-              placeholder="hello@domain.com"
-              required
-            />
-          </div>
-          <div className="flex flex-col gap-2 text-white">
-            <label htmlFor="message" className="text-xs font-semibold uppercase tracking-[0.35em] text-white/60">
-              Project Notes
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              className="rounded-2xl border border-white/40 bg-white/10 px-4 py-2 text-base text-white placeholder-white/50 outline-none focus:border-white"
-              placeholder="2 rooms, Farrow & Ball, lime plaster repairs..."
-              rows={3}
-            />
-          </div>
-          <button
-            type="submit"
-            className="inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70"
-            disabled={status === 'sending'}
-          >
-            {status === 'sending' ? 'Sending…' : 'Request Callback'}
-          </button>
-          <p className={`text-center text-sm ${status === 'success' ? 'text-emerald-300' : 'text-rose-200'}`} aria-live="polite">
-            {feedback}
+    <section id="contact" className="section-padding bg-slate-50/70">
+      <div className="hover-lift mx-auto grid max-w-5xl gap-10 rounded-[1.75rem] border border-slate-200 bg-white px-6 py-10 shadow-sm lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+        <FadeIn className="space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Ready to brief us?</p>
+          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Give us a clear brief — we reply the same day.</h2>
+          <p className="text-base text-slate-600">
+            More space for details: rooms, finishes, timelines, access notes. We&apos;ll reply with a same-day call slot, outline costs, and a
+            short checklist so your survey is efficient.
           </p>
-        </form>
-      </FadeIn>
+          <div className="space-y-2 rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
+            <p className="font-semibold text-slate-900">Fastest route: WhatsApp</p>
+            <p>Tap below to share photos or voice notes — we reply in minutes and confirm next steps.</p>
+            <a
+              href={contactWhatsAppLink}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1BD741] px-4 py-2 text-sm font-semibold text-slate-900 transition hover:brightness-95"
+            >
+              💬 Chat on WhatsApp now
+            </a>
+            <p className="text-xs text-slate-500">Replies within {WHATSAPP_HOURS} — add us manually at {WHATSAPP_NUMBER_DISPLAY}.</p>
+          </div>
+          <ul className="space-y-3 text-sm text-slate-600">
+            <li className="flex items-center gap-3">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">1</span>
+              <span>Tell us where and what you need painted (rooms, colours, finishes).</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">2</span>
+              <span>Jump on a 15-minute strategy call.</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">3</span>
+              <span>Approve the quote & lock a start date.</span>
+            </li>
+          </ul>
+          <div className="rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
+            Prefer email? Use the form to share the essentials and we&apos;ll follow up within one business day. We still send confirmations
+            via WhatsApp for convenience.
+          </div>
+        </FadeIn>
+        <FadeIn>
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-[1.75rem] border border-white/80 bg-white/95 p-6 shadow-[0_35px_95px_-70px_rgba(15,23,42,0.85)]"
+            noValidate
+          >
+            <div className="flex flex-col gap-2 text-slate-900">
+              <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div className="mt-4 flex flex-col gap-2 text-slate-900">
+              <label htmlFor="email" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                Email or phone
+              </label>
+              <input
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                placeholder="hello@primecoatlondon.co.uk"
+                required
+              />
+            </div>
+            <div className="mt-4 grid gap-4 text-slate-900 sm:grid-cols-2">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="propertyType" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                  Property type
+                </label>
+                <select
+                  id="propertyType"
+                  name="propertyType"
+                  value={propertyType}
+                  onChange={(e) => setPropertyType(e.target.value)}
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-slate-900"
+                >
+                  <option value="">Select</option>
+                  <option>Apartment / flat</option>
+                  <option>House / townhouse</option>
+                  <option>Commercial space</option>
+                  <option>Exterior only</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="timeline" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                  Ideal start
+                </label>
+                <select
+                  id="timeline"
+                  name="timeline"
+                  value={timeline}
+                  onChange={(e) => setTimeline(e.target.value)}
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-slate-900"
+                >
+                  <option value="">Select</option>
+                  <option>ASAP (this week)</option>
+                  <option>1-2 weeks</option>
+                  <option>This month</option>
+                  <option>Flexible / planning</option>
+                </select>
+              </div>
+            </div>
+            <div className="mt-4 flex flex-col gap-2 text-slate-900">
+              <label htmlFor="postcode" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                Postcode
+              </label>
+              <input
+                id="postcode"
+                name="postcode"
+                value={postcode}
+                onChange={(e) => setPostcode(e.target.value)}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                placeholder="SW1, W8, E14..."
+              />
+            </div>
+            <div className="mt-4 flex flex-col gap-2 text-slate-900">
+              <label htmlFor="message" className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">
+                Project notes (the more detail, the faster the quote)
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                placeholder="Room counts, finishes, timing, budget..."
+                rows={5}
+              />
+            </div>
+            <button
+              type="submit"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={status === 'sending'}
+            >
+              {status === 'sending' ? 'Sending…' : 'Send my project brief'}
+            </button>
+            <p
+              className={`mt-3 text-center text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-500'}`}
+              aria-live="polite"
+            >
+              {feedback}
+            </p>
+          </form>
+        </FadeIn>
+      </div>
     </section>
   );
 }

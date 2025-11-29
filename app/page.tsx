@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Hero1 } from '../components/ui/hero-1';
 import OfferStack from '../components/OfferStack';
 import ServiceHighlights from '../components/ServiceHighlights';
+import Portfolio from '../components/Portfolio';
+import LocalSEO from '../components/LocalSEO';
 import Reviews from '../components/Reviews';
 import FAQs from '../components/FAQs';
 import FinalCTA from '../components/FinalCTA';
@@ -10,11 +12,20 @@ import StickyWhatsAppCTA from '../components/StickyWhatsAppCTA';
 import StructuredData from '../components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
+  title: 'Painters & Decorators London | Prime Coat London',
   description:
-    'Book a meticulous London painting & decorating crew with same-week surveys, dust-free prep, and daily WhatsApp updates. Prime Coat London turns enquiries into protected, camera-ready spaces.',
+    'Book vetted London painters and decorators near you for same-week surveys, dust-free prep, and daily WhatsApp updates. Prime Coat London covers Central & Greater London with fixed quotes and clean handovers.',
+  keywords: [
+    'painters london',
+    'painters near me',
+    'decorators london',
+    'london painting company',
+    'interior painters london',
+    'exterior painters london',
+    'prime coat london'
+  ],
   openGraph: {
-    title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
+    title: 'Painters & Decorators London | Prime Coat London',
     description:
       'Same-week surveys, fixed quotes, and fully insured painting crews covering Greater London.',
     url: 'https://primecoatlondon.co.uk/',
@@ -35,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
+    title: 'Painters & Decorators London | Prime Coat London',
     description: 'Same-week surveys, dust-free prep, and WhatsApp-updated decorating teams across London.',
     images: ['https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80']
   }
@@ -47,6 +58,8 @@ export default function HomePage() {
       <Hero1 />
       <OfferStack />
       <ServiceHighlights />
+      <Portfolio />
+      <LocalSEO />
       <Reviews />
       <FAQs />
       <FinalCTA />

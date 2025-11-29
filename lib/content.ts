@@ -1,50 +1,59 @@
 export const faqs = [
   {
-    question: 'How long does a typical project take?',
+    question: 'How quickly can you start once I approve the quote?',
     answer:
-      'Most interior rooms take 3–5 days including protection, prep, two coats, and snagging. Larger refurbishments are scheduled with daily progress updates so you always know the handover date.',
-    badge: 'Scheduling'
+      'We hold diary space as soon as you pay the booking deposit. Interior projects typically start within 10 days; if we miss that window we credit the first day of labour.',
+    badge: 'Speed'
   },
   {
-    question: 'Do you handle all protection and clean-up?',
+    question: 'Can you manage the project while I am travelling?',
     answer:
-      'Yes. We wrap floors, furniture, and joinery with labelled protection plans, run dust-free sanding, and vacuum nightly so you can live around our crews.',
-    badge: 'Protection'
+      'Yes. We set up a WhatsApp group with daily photos, videos, and snag lists. You can sign off remotely with HD walkthroughs and we will lock your property at the end of each day.',
+    badge: 'Remote'
   },
   {
-    question: 'What paints and finishes do you use?',
+    question: 'What products do you specify?',
     answer:
-      'We favour Farrow & Ball, Little Greene, Dulux Heritage, and Tikkurila for cabinetry. All products are low-VOC where possible, and we can supply specifications for designers or management companies.',
+      'Farrow & Ball, Little Greene, and Dulux Heritage for walls, plus Tikkurila and Benjamin Moore for cabinetry. We document every primer, sheen, and colour code for your records.',
     badge: 'Materials'
   },
   {
-    question: 'Are you insured and DBS checked?',
+    question: 'Are you insured and compliant?',
     answer:
-      'Prime Coat carries £5m public liability insurance, is CIS registered, and every crew member is DBS checked. Certificates are provided before works begin.',
+      'Prime Coat carries £5m public liability insurance, CIS registration, waste carrier licenses, and every crew member is DBS checked. Certificates are issued with your proposal.',
     badge: 'Compliance'
   },
   {
-    question: 'Can you work while we are away?',
+    question: 'Do you work evenings or weekends if needed?',
     answer:
-      'Absolutely. Many clients travel during works—we send daily WhatsApp photos and video walkthroughs, and can hand over via a final snag list if you are remote.',
-    badge: 'Remote handover'
+      'We can run extended hours, nights, or weekends for commercial and fast-turnaround projects. Your quote will show any overtime rates before you sign.',
+    badge: 'Scheduling'
   }
 ] as const;
 
 export const reviews = [
   {
-    name: 'Charlotte, SW1',
-    title: 'Flawless townhouse repaint',
-    text: 'They protected our marble floors, repaired every hairline crack, and delivered the sharpest lines I have ever seen.'
+    name: 'Charlotte W., Belgravia',
+    role: 'Homeowner',
+    title: 'They ran our entire townhouse repaint while we were abroad',
+    text: 'Daily WhatsApp updates, spotless protection, and the final walkthrough felt like a boutique hotel handover.'
   },
   {
-    name: 'Ethan, Property Manager',
-    title: 'Reliable partner for multi-unit works',
-    text: 'Prime Coat London handles our rental refreshes with speed and consistent quality, even on tight turnarounds.'
+    name: 'Ethan R., Asset Manager',
+    role: 'Property Manager',
+    title: 'My go-to team for 20+ rental refreshes',
+    text: 'Quotes land in a day, punch lists are shared live, and they have never missed a handover date.'
   },
   {
-    name: 'Mae, Interior Designer',
-    title: 'Attention to detail rivals our studio',
-    text: 'Their artisans understood the mood boards instantly and produced luxury finishes our clients love.'
+    name: 'Mae T., Interior Designer',
+    role: 'Designer',
+    title: 'Understood the design intent instantly',
+    text: 'They tested colours in natural light, matched every sheen, and kept my client updated so I did not have to.'
+  },
+  {
+    name: 'Oliver P., Developer',
+    role: 'Developer',
+    title: 'Fast exterior and lobby turnaround',
+    text: 'Prime Coat managed scaffold, liaised with neighbours, and delivered a premiere-ready finish ahead of an open day.'
   }
 ] as const;

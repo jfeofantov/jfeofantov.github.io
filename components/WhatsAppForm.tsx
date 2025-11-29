@@ -16,6 +16,7 @@ type WhatsAppFormProps = {
   appearance?: 'light' | 'dark';
   idPrefix?: string;
   minimal?: boolean;
+  animatedBorder?: boolean;
 };
 
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_WHATSAPP_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/message';
@@ -56,7 +57,8 @@ export default function WhatsAppForm({
   compact = false,
   appearance = 'light',
   idPrefix = 'whatsapp',
-  minimal = false
+  minimal = false,
+  animatedBorder = false
 }: WhatsAppFormProps) {
   const [whatsapp, setWhatsapp] = useState('');
   const [consent, setConsent] = useState(false);
@@ -139,14 +141,15 @@ export default function WhatsAppForm({
       : 'text-center text-sm text-rose-600';
 
   return (
-    <div className={className}>
-      {heading ? <p className={headingClassName}>{heading}</p> : null}
-      {description ? <p className={descriptionClassName}>{description}</p> : null}
-      <form
-        onSubmit={handleWhatsAppSubmit}
-        className={`mt-3 space-y-3 ${appearance === 'dark' ? 'text-white' : 'text-slate-700'}`}
-        noValidate
-      >
+    <div className={`${animatedBorder ? 'border-animated' : ''} ${className}`}>
+      <div className={animatedBorder ? 'border-animated-inner' : ''}>
+        {heading ? <p className={headingClassName}>{heading}</p> : null}
+        {description ? <p className={descriptionClassName}>{description}</p> : null}
+        <form
+          onSubmit={handleWhatsAppSubmit}
+          className={`mt-3 space-y-3 ${appearance === 'dark' ? 'text-white' : 'text-slate-700'}`}
+          noValidate
+        >
         <div
           className={`grid grid-cols-1 gap-2 sm:grid-cols-[4.5rem_1fr_auto_auto] ${
             minimal
@@ -176,7 +179,7 @@ export default function WhatsAppForm({
                   : `rounded-2xl border focus-visible:ring-2 focus-visible:ring-white/50 ${
                       appearance === 'dark' ? 'border-white/25 bg-white/10 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
                     }`
-              } ${compact ? 'px-2 py-1 pr-4 text-[0.6rem]' : 'px-3 py-1.5 pr-6 text-[0.85rem]'}`}
+              } ${compact ? 'px-2 py-1.5 pr-4 text-[0.6rem]' : 'px-3.5 py-2 pr-6 text-[0.85rem]'}`}
             >
               {options.map((option) => (
                 <option key={option.code} value={option.code}>
@@ -192,9 +195,9 @@ export default function WhatsAppForm({
               minimal
                 ? ''
                 : appearance === 'dark'
-                  ? 'border-white/20 bg-white/10 text-white focus-within:border-[#1BD741]/50 focus-within:shadow-[0_8px_35px_-25px_rgba(27,215,65,0.8)]'
-                  : 'border-slate-100 bg-white text-slate-700 focus-within:border-[#1BD741]/40 focus-within:shadow-[0_12px_35px_-25px_rgba(27,215,65,0.5)]'
-            } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3 py-2 text-sm'}`}
+                  ? 'border-white/20 bg-white/10 text-white focus-within:border-[#1BD741]/80 focus-within:shadow-[0_8px_35px_-25px_rgba(27,215,65,0.8)]'
+                  : 'border-slate-100 bg-white text-slate-700 focus-within:border-[#1BD741]/80 focus-within:shadow-[0_12px_35px_-25px_rgba(27,215,65,0.5)]'
+            } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3.5 py-2 text-sm'}`}
           >
             <input
               id={inputId}
@@ -217,7 +220,7 @@ export default function WhatsAppForm({
           <label
             className={`flex items-center justify-between gap-2 text-[0.58rem] ${
               appearance === 'dark' ? 'text-white/75' : 'text-slate-600'
-            } ${minimal ? 'rounded-full border border-white/15 px-3 py-1.5' : ''}`}
+            } ${minimal ? 'px-1.5 py-1' : ''}`}
           >
             <span className="inline-flex items-center gap-1">
               <input
@@ -240,7 +243,8 @@ export default function WhatsAppForm({
         <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem] text-center text-[0.65rem]">
           {feedback ? <p className={feedbackClass}>{feedback}</p> : null}
         </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
