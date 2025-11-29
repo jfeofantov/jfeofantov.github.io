@@ -1,26 +1,23 @@
 import type { Metadata } from 'next';
-import Hero from '../components/Hero';
-import NeedPainter from '../components/NeedPainter';
-import WhyChooseUs from '../components/WhyChooseUs';
-import Services from '../components/Services';
-import MaterialBadges from '../components/MaterialBadges';
-import Areas from '../components/Areas';
-import FAQs from '../components/FAQs';
-import Portfolio from '../components/Portfolio';
+import { Hero1 } from '../components/ui/hero-1';
+import OfferStack from '../components/OfferStack';
+import ServiceHighlights from '../components/ServiceHighlights';
 import Reviews from '../components/Reviews';
+import FAQs from '../components/FAQs';
 import FinalCTA from '../components/FinalCTA';
-import StructuredData from '../components/StructuredData';
 import Footer from '../components/Footer';
+import StickyWhatsAppCTA from '../components/StickyWhatsAppCTA';
+import StructuredData from '../components/StructuredData';
 
 export const metadata: Metadata = {
-  title: 'Prime Coat London | Painting & Decorating Specialists',
+  title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
   description:
-    'Prime Coat London delivers premium painting, decorating, and plaster restoration across Greater London with honest pricing and meticulous quality.',
+    'Book a meticulous London painting & decorating crew with same-week surveys, dust-free prep, and daily WhatsApp updates. Prime Coat London turns enquiries into protected, camera-ready spaces.',
   openGraph: {
-    title: 'Prime Coat London | Painting & Decorating Specialists',
+    title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
     description:
-      'Prime Coat London delivers premium painting, decorating, and plaster restoration across Greater London with honest pricing and meticulous quality.',
-    url: 'https://primecoatlondon.com/',
+      'Same-week surveys, fixed quotes, and fully insured painting crews covering Greater London.',
+    url: 'https://primecoatlondon.co.uk/',
     siteName: 'Prime Coat London',
     locale: 'en_GB',
     type: 'website',
@@ -29,36 +26,32 @@ export const metadata: Metadata = {
         url: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
-        alt: 'Prime Coat London work in progress'
+        alt: 'Prime Coat London painting and decorating team'
       }
     ]
   },
   alternates: {
-    canonical: 'https://primecoatlondon.com/'
+    canonical: 'https://primecoatlondon.co.uk/'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Prime Coat London | Painting & Decorating Specialists',
-    description:
-      'Prime Coat London delivers premium painting, decorating, and plaster restoration across Greater London with honest pricing and meticulous quality.',
+    title: 'Prime Coat London | Zero-Stress Painting & Decorating Funnel',
+    description: 'Same-week surveys, dust-free prep, and WhatsApp-updated decorating teams across London.',
     images: ['https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80']
   }
 };
 
 export default function HomePage() {
   return (
-    <main className="pt-28">
-      <Hero />
-      <NeedPainter />
-      <WhyChooseUs />
-      <Services />
-      <MaterialBadges />
-      <FAQs />
-      <Portfolio />
+    <main>
+      <Hero1 />
+      <OfferStack />
+      <ServiceHighlights />
       <Reviews />
-      <Areas />
+      <FAQs />
       <FinalCTA />
       <Footer />
+      <StickyWhatsAppCTA />
       <StructuredData />
     </main>
   );

@@ -12,7 +12,10 @@ type WhatsAppFormProps = {
   buttonLabel?: string;
   buttonClassName?: string;
   source?: string;
+  compact?: boolean;
+  appearance?: 'light' | 'dark';
   idPrefix?: string;
+  minimal?: boolean;
 };
 
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_WHATSAPP_WEBHOOK_URL ?? 'https://eugenefeo.app.n8n.cloud/webhook-test/message';
@@ -43,14 +46,17 @@ const normalizePhoneNumber = (value: string, country: CountryDialCode) => {
 
 export default function WhatsAppForm({
   className = '',
-  heading = 'Prefer WhatsApp?',
+  heading = 'Share your brief on WhatsApp',
   headingClassName = 'text-xs font-semibold uppercase tracking-[0.35em] text-[#c96527]',
   description = 'Leave your number and our project manager will call or message you back the same day.',
   descriptionClassName = 'mt-2 text-base text-slate-600',
   buttonLabel = 'Start conversation',
-  buttonClassName = 'inline-flex w-full items-center justify-center rounded-full bg-[#c96527] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-[#c96527]/30 transition hover:translate-y-[-1px] hover:brightness-95 focus:outline-none',
+  buttonClassName = 'inline-flex w-full items-center justify-center rounded-full bg-[#c96527] px-4 py-3 text-sm font-semibold tracking-[0.2em] text-white shadow-lg shadow-[#c96527]/30 transition hover:translate-y-[-1px] hover:brightness-95 focus:outline-none',
   source = 'hero',
-  idPrefix = 'whatsapp'
+  compact = false,
+  appearance = 'light',
+  idPrefix = 'whatsapp',
+  minimal = false
 }: WhatsAppFormProps) {
   const [whatsapp, setWhatsapp] = useState('');
   const [consent, setConsent] = useState(false);
@@ -136,38 +142,70 @@ export default function WhatsAppForm({
     <div className={className}>
       {heading ? <p className={headingClassName}>{heading}</p> : null}
       {description ? <p className={descriptionClassName}>{description}</p> : null}
-      <form onSubmit={handleWhatsAppSubmit} className="mt-4 space-y-3" noValidate>
-        <div className="flex flex-col gap-2 rounded-3xl border border-slate-200 bg-white px-3 py-3 text-base shadow-inner sm:flex-row sm:items-center">
+      <form
+        onSubmit={handleWhatsAppSubmit}
+        className={`mt-3 space-y-3 ${appearance === 'dark' ? 'text-white' : 'text-slate-700'}`}
+        noValidate
+      >
+        <div
+          className={`grid grid-cols-1 gap-2 sm:grid-cols-[4.5rem_1fr_auto_auto] ${
+            minimal
+              ? compact
+                ? 'text-[0.65rem]'
+                : 'text-sm'
+              : 'rounded-[1.5rem] border transition-all focus-within:border-[#1BD741]/60 focus-within:shadow-[0_18px_45px_-28px_rgba(27,215,65,0.85)]'
+          } ${
+            minimal
+              ? 'bg-transparent text-white'
+              : appearance === 'dark'
+                ? 'border-white/15 bg-white/5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
+                : 'border-slate-200 bg-white text-slate-700 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.45)]'
+          } ${compact ? (minimal ? '' : 'px-2.5 py-2 text-[0.7rem]') : minimal ? '' : 'px-4 py-4 text-base'}`}
+        >
           <label htmlFor={`${idPrefix}-country`} className="sr-only">
             Country
           </label>
-          <div className="relative w-full sm:w-60">
+          <div className={`relative flex w-full items-center ${compact ? 'text-[0.6rem]' : 'text-xs'}`}>
             <select
               id={`${idPrefix}-country`}
               value={countryCode}
               onChange={(event) => setCountryCode(event.target.value as CountryDialCode['code'])}
-              className="w-full appearance-none rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2 pr-7 text-sm font-semibold text-slate-700"
+              className={`w-full appearance-none font-semibold text-left transition focus-visible:outline-none ${
+                minimal
+                  ? 'rounded-full bg-white/15 text-white focus-visible:ring-0'
+                  : `rounded-2xl border focus-visible:ring-2 focus-visible:ring-white/50 ${
+                      appearance === 'dark' ? 'border-white/25 bg-white/10 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
+                    }`
+              } ${compact ? 'px-2 py-1 pr-4 text-[0.6rem]' : 'px-3 py-1.5 pr-6 text-[0.85rem]'}`}
             >
               {options.map((option) => (
                 <option key={option.code} value={option.code}>
-                  {option.label} (+{option.dialCode})
+                  {option.code} (+{option.dialCode})
                 </option>
               ))}
             </select>
-            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-500">▾</span>
           </div>
-          <div className="flex w-full items-center gap-2 rounded-2xl border border-slate-100 bg-white px-3 py-2 text-base text-slate-700 sm:flex-1">
-            <span className="font-semibold" aria-hidden>
-              +{selectedCountry.dialCode}
-            </span>
+          <div
+            className={`flex items-center transition-all ${
+              minimal ? 'rounded-full bg-white/15 text-white focus-within:ring-2 focus-within:ring-[#1BD741]/50' : 'rounded-2xl border'
+            } ${
+              minimal
+                ? ''
+                : appearance === 'dark'
+                  ? 'border-white/20 bg-white/10 text-white focus-within:border-[#1BD741]/50 focus-within:shadow-[0_8px_35px_-25px_rgba(27,215,65,0.8)]'
+                  : 'border-slate-100 bg-white text-slate-700 focus-within:border-[#1BD741]/40 focus-within:shadow-[0_12px_35px_-25px_rgba(27,215,65,0.5)]'
+            } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3 py-2 text-sm'}`}
+          >
             <input
               id={inputId}
               name={inputId}
               type="tel"
               value={whatsapp}
               onChange={(event) => setWhatsapp(event.target.value)}
-              placeholder="Enter number"
-              className="min-w-[120px] flex-1 bg-transparent text-base placeholder-slate-400 focus:outline-none"
+              placeholder="WhatsApp number"
+              className={`flex-1 bg-transparent focus:outline-none ${appearance === 'dark' ? 'placeholder-white/50 text-white' : 'placeholder-slate-400 text-slate-700'} ${
+                compact ? 'text-[0.75rem]' : 'text-base'
+              }`}
               aria-label="WhatsApp number"
               aria-describedby={feedback ? feedbackId : undefined}
               aria-invalid={isError || undefined}
@@ -176,26 +214,30 @@ export default function WhatsAppForm({
               pattern="[0-9]*"
             />
           </div>
-        </div>
-        <button type="submit" className={buttonClassName} disabled={isSending}>
-          {isSending ? 'Sending…' : buttonLabel}
-        </button>
-        <label className="flex items-center justify-center gap-2 text-[11px] text-slate-600">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(event) => setConsent(event.target.checked)}
-            className="h-4 w-4 rounded border-slate-300 text-[#c96527] focus:ring-[#c96527]/30"
-            aria-required
-          />
-          <span>
-            I agree to be contacted —{' '}
+          <label
+            className={`flex items-center justify-between gap-2 text-[0.58rem] ${
+              appearance === 'dark' ? 'text-white/75' : 'text-slate-600'
+            } ${minimal ? 'rounded-full border border-white/15 px-3 py-1.5' : ''}`}
+          >
+            <span className="inline-flex items-center gap-1">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(event) => setConsent(event.target.checked)}
+                className="h-3.5 w-3.5 rounded border-slate-300 text-[#c96527] focus:ring-[#c96527]/30"
+                aria-required
+              />
+              I agree to be contacted
+            </span>
             <a href="/terms" target="_blank" rel="noreferrer" className="underline">
               Terms
             </a>
-          </span>
-        </label>
-        <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem]">
+          </label>
+          <button type="submit" className={`${buttonClassName} w-full sm:self-stretch`} disabled={isSending}>
+            {isSending ? 'Sending…' : buttonLabel}
+          </button>
+        </div>
+        <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem] text-center text-[0.65rem]">
           {feedback ? <p className={feedbackClass}>{feedback}</p> : null}
         </div>
       </form>
