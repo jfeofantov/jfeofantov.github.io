@@ -30,26 +30,32 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
   ) => {
     const [sliderPosition, setSliderPosition] = React.useState(initialPosition);
     const [isDragging, setIsDragging] = React.useState(false);
-    const containerRef = React.useRef<HTMLDivElement>(null);
+    const containerRef = React.useRef<HTMLDivElement | null>(null);
 
-    const handleMove = (clientX: number) => {
+    const handleMove = React.useCallback((clientX: number) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const x = clientX - rect.left;
       let newPosition = (x / rect.width) * 100;
       newPosition = Math.max(0, Math.min(100, newPosition));
       setSliderPosition(newPosition);
-    };
+    }, []);
 
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!isDragging) return;
-      handleMove(event.clientX);
-    };
+    const handleMouseMove = React.useCallback(
+      (event: MouseEvent) => {
+        if (!isDragging) return;
+        handleMove(event.clientX);
+      },
+      [handleMove, isDragging]
+    );
 
-    const handleTouchMove = (event: TouchEvent) => {
-      if (!isDragging) return;
-      handleMove(event.touches[0]?.clientX ?? 0);
-    };
+    const handleTouchMove = React.useCallback(
+      (event: TouchEvent) => {
+        if (!isDragging) return;
+        handleMove(event.touches[0]?.clientX ?? 0);
+      },
+      [handleMove, isDragging]
+    );
 
     const handleInteractionStart = (event: React.MouseEvent | React.TouchEvent) => {
       setIsDragging(true);
@@ -60,7 +66,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
       }
     };
 
-    const handleInteractionEnd = () => setIsDragging(false);
+    const handleInteractionEnd = React.useCallback(() => setIsDragging(false), []);
 
     React.useEffect(() => {
       if (isDragging) {
@@ -80,7 +86,7 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         document.removeEventListener('touchend', handleInteractionEnd);
         document.body.style.cursor = '';
       };
-    }, [isDragging]);
+    }, [handleMouseMove, handleTouchMove, handleInteractionEnd, isDragging]);
 
     return (
       <div
