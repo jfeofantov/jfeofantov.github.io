@@ -71,7 +71,7 @@ p {
   position: absolute;
   inset: -30% -20% auto;
   height: 60%;
-  background: radial-gradient(circle at 30% 40%, rgba(251, 191, 36, 0.15), rgba(255, 255, 255, 0) 55%);
+  background: radial-gradient(circle at 30% 40%, rgba(148, 163, 184, 0.16), rgba(255, 255, 255, 0) 55%);
   filter: blur(60px);
   animation: pulseGlow 9s ease-in-out infinite alternate;
 }
@@ -118,7 +118,7 @@ p {
   content: '';
   position: absolute;
   inset: -40%;
-  background: conic-gradient(from 45deg, #f59e0b, #fcd34d, #f59e0b);
+  background: conic-gradient(from 45deg, #0f172a, #334155, #0f172a);
   animation: spinBorder 14s linear infinite;
   opacity: 0.85;
 }
@@ -134,6 +134,38 @@ p {
 @keyframes spinBorder {
   to {
     transform: rotate(1turn);
+  }
+}
+
+.hero-bg-fade {
+  animation: heroFade 900ms ease-out both;
+}
+
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeDesktop {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 1024px) {
+  .animate-heroFade {
+    animation: heroFadeDesktop 800ms ease-out both;
   }
 }
 

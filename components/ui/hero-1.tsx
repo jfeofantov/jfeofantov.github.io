@@ -1,126 +1,133 @@
 'use client';
 
 import Image from 'next/image';
-import { Check, MapPin, Phone, ShieldCheck, Timer } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Phone, ShieldCheck, Timer, BadgeCheck, PiggyBank } from 'lucide-react';
 import { PHONE_NUMBER_DISPLAY, PHONE_NUMBER_LINK } from '../../lib/contact';
 import WhatsAppForm from '../WhatsAppForm';
 import { ImageComparisonSlider } from './image-comparison-slider';
 
-const CONTACT_EMAIL = 'hello@primecoatlondon.co.uk';
-const NAV_LINKS = [
-  { href: '#services', label: 'Services' },
-  { href: '#reviews', label: 'Reviews' },
-  { href: '#faqs', label: 'FAQs' },
-  { href: '#contact', label: 'Contact' }
-];
+const CONTACT_EMAIL = 'info@primecoatlondon.co.uk';
 
-const sellingPoints = [
-  'Same-week surveys anywhere in London',
-  'Dust-free prep, tidy DBS-checked crews',
-  'Fixed quotes with primers and sheens listed'
-];
+const typewriterLocations = ['London', 'Newham', 'Chelsea', 'Kensington'];
 
-const stats = [
-  { label: 'Avg. response', value: '12 min' },
-  { label: '5.0 rating', value: 'Google' },
-  { label: 'Start date', value: 'Guaranteed' }
-];
+function TypewriterLocation() {
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = typewriterLocations[index % typewriterLocations.length];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        const next = current.slice(0, text.length + 1);
+        setText(next);
+      } else {
+        const next = current.slice(0, text.length - 1);
+        setText(next);
+        if (next === '') {
+          setIsDeleting(false);
+          setIndex((prev) => (prev + 1) % typewriterLocations.length);
+        }
+      }
+    }, isDeleting ? 80 : 120);
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, index]);
+
+  useEffect(() => {
+    if (!isDeleting && text === typewriterLocations[index % typewriterLocations.length]) {
+      const pause = setTimeout(() => setIsDeleting(true), 1000);
+      return () => clearTimeout(pause);
+    }
+  }, [text, isDeleting, index]);
+
+  return (
+    <span className="inline-flex items-center gap-1 text-slate-700">
+      in <span className="relative inline-block min-w-[90px] font-black text-slate-900">{text}</span>
+      <span className="h-5 w-0.5 animate-pulse bg-slate-900" aria-hidden />
+    </span>
+  );
+}
 
 export function Hero1() {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-white hero-bg-fade lg:animate-heroFade">
       <div className="pointer-events-none absolute inset-0">
         <div className="spotlight" />
       </div>
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
-        <div className="flex flex-wrap items-center gap-2 text-[0.7rem] uppercase tracking-[0.28em] text-slate-500">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="rounded-full border border-slate-200 bg-white px-3 py-1 transition hover:border-slate-400 hover:text-slate-800"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div className="space-y-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <Image src="/prime-coat-logo.png" alt="Prime Coat London logo" width={150} height={42} className="h-10 w-auto" priority />
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-700">
-                  Painting & decorating
-                </span>
-              </div>
-              <div className="space-y-3">
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-amber-600">Painters & decorators in London</p>
-                <h1 className="text-3xl font-black leading-tight text-slate-900 sm:text-4xl lg:text-[2.75rem]">
-                Simple, tidy painting crews ready this week.
-              </h1>
-              <p className="text-base leading-relaxed text-slate-600 sm:text-lg">
-                Book a vetted crew for interiors, exteriors, or wallpaper. We confirm times, protect every surface, and keep you updated with
-                photos.
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-0 py-0 sm:px-0 sm:py-0 lg:px-0 lg:py-0">
+        <div className="grid gap-12 lg:gap-20 lg:grid-cols-[60%_40%] lg:items-center px-0 sm:px-0 lg:px-0 py-6 sm:py-8 lg:py-10">
+          <div className="space-y-6">
+            <div className="space-y-3 max-w-3xl">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-700">
+                We don&apos;t compete on price — only on quality
               </p>
-            </div>
-            <ul className="grid gap-3 text-sm text-slate-700 sm:grid-cols-2">
-              {sellingPoints.map((point) => (
-                <li key={point} className="hover-lift flex items-start gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm">
-                  <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-amber-700">
-                    <Check className="h-4 w-4" aria-hidden />
-                  </span>
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#contact"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-amber-500 px-5 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-amber-600 sm:w-auto"
-              >
-                Book my painter
-              </a>
-              <a
-                href={`tel:${PHONE_NUMBER_LINK}`}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-slate-800 transition hover:border-slate-500 sm:w-auto"
-              >
-                <Phone className="h-4 w-4" aria-hidden />
-                Call {PHONE_NUMBER_DISPLAY}
-              </a>
+              <h1 className="text-4xl font-black leading-tight text-slate-900 sm:text-[3rem] lg:text-[3.25rem]">
+                PAINTING & DECORATING <TypewriterLocation />
+              </h1>
+              <p className="text-[17px] leading-relaxed text-slate-600 max-w-[90%]">
+                At Prime Coat London, we bring your vision to life with top-quality painting and decorating services. Trusted local decorators
+                deliver outstanding results every time.
+              </p>
             </div>
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
               <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1">
+                <BadgeCheck className="h-4 w-4 text-slate-700" aria-hidden />
+                1 Year Guarantee*
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1">
+                <PiggyBank className="h-4 w-4 text-slate-700" aria-hidden />
+                Competitive Rates
+              </span>
+              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1">
                 <ShieldCheck className="h-4 w-4 text-slate-700" aria-hidden />
-                Insured & DBS-checked
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1">
-                <MapPin className="h-4 w-4 text-slate-700" aria-hidden />
-                Central & Greater London
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1">
-                <Timer className="h-4 w-4 text-slate-700" aria-hidden />
-                Same-day responses
+                Certified & Insured
               </span>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div key={stat.label} className="hover-lift rounded-xl border border-slate-200 bg-white p-3 text-center shadow-sm">
-                  <p className="text-xl font-semibold text-slate-900">{stat.value}</p>
-                  <p className="text-[0.6rem] uppercase tracking-[0.28em] text-slate-500">{stat.label}</p>
-                </div>
-              ))}
+            <div className="relative w-full max-w-2xl overflow-hidden rounded-[1.25rem] border-2 border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 p-4 text-white">
+              <div className="pointer-events-none absolute inset-0 rounded-[1.1rem] border border-white/10" aria-hidden />
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-[#25D366]">WhatsApp quote</p>
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#25D366]/15 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-[#25D366]">
+                  <Timer className="h-3.5 w-3.5" aria-hidden />
+                </span>
+              </div>
+              <p className="mt-1 text-[12px] text-white/80 whitespace-nowrap">
+                Leave your number and we&apos;ll contact you instantly — share details or wait for a call.
+              </p>
+              <div className="mt-2">
+                <WhatsAppForm
+                  heading=""
+                  description=""
+                  buttonLabel="Send"
+                  className="mt-0"
+                  compact
+                  buttonClassName="inline-flex items-center justify-center rounded-full bg-white px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-900 transition hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:opacity-70"
+                  appearance="dark"
+                  source="hero-1"
+                  idPrefix="hero1-whatsapp-inline"
+                />
+              </div>
+              <p className="mt-2 text-xs text-white/80">
+                Prefer a call?{' '}
+                <a href={`tel:${PHONE_NUMBER_LINK}`} className="font-semibold text-white underline decoration-white/40 underline-offset-4">
+                  {PHONE_NUMBER_DISPLAY}
+                </a>{' '}
+                · Email {CONTACT_EMAIL}
+              </p>
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className="hover-lift overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-50/70 p-4 shadow-sm">
+          <div className="space-y-3">
+            <div className="overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white p-3">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-[0.65rem] uppercase tracking-[0.35em] text-slate-500">Live London project</p>
-                  <p className="text-base font-semibold text-slate-900">Before / after — Chelsea repaint</p>
+                  <p className="text-base font-semibold text-slate-900">Shoreditch ceiling repaint</p>
                 </div>
-                <span className="rounded-full bg-white px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-slate-700">
-                  Painters London
+                <span className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-slate-800">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" aria-hidden />
+                  Completed in 5 days
                 </span>
               </div>
               <div className="mt-3 rounded-xl border border-slate-200 bg-white p-2">
@@ -133,46 +140,12 @@ export function Hero1() {
                   initialPosition={55}
                   loading="lazy"
                 />
-              </div>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm">
-                  Painters near you across Zones 1–4: Belgravia, Chelsea, Kensington, Canary Wharf, and more.
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm">
-                  Protection plans, dust-free sanding, and daily WhatsApp photos until sign-off.
+                <div className="mt-2 flex items-center justify-between text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
+                  <span>Before</span>
+                  <span>After</span>
                 </div>
               </div>
-            </div>
-
-            <div className="hover-lift rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between gap-2">
-                <div>
-                  <p className="text-[0.65rem] uppercase tracking-[0.35em] text-slate-500">WhatsApp quote</p>
-                  <p className="text-sm font-semibold text-slate-900">Drop your number — we reply in minutes.</p>
-                </div>
-                <Timer className="h-5 w-5 text-amber-500" aria-hidden />
-              </div>
-              <div className="mt-3">
-                <WhatsAppForm
-                  heading=""
-                  description=""
-                  buttonLabel="Send"
-                  className="mt-0"
-                  compact
-                  buttonClassName="inline-flex items-center justify-center rounded-full bg-amber-500 px-3 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-amber-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 disabled:opacity-70"
-                  appearance="light"
-                  source="hero-1"
-                  idPrefix="hero1-whatsapp"
-                  animatedBorder
-                />
-              </div>
-              <p className="mt-2 text-[0.75rem] text-slate-600">
-                Or email{' '}
-                <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-slate-900 underline decoration-slate-200 underline-offset-4">
-                  {CONTACT_EMAIL}
-                </a>{' '}
-                · Call {PHONE_NUMBER_DISPLAY}
-              </p>
+              <p className="mt-3 text-sm text-slate-600">Clean prep, careful protection, and tidy handovers.</p>
             </div>
           </div>
         </div>

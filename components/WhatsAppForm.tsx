@@ -48,11 +48,11 @@ const normalizePhoneNumber = (value: string, country: CountryDialCode) => {
 export default function WhatsAppForm({
   className = '',
   heading = 'Share your brief on WhatsApp',
-  headingClassName = 'text-xs font-semibold uppercase tracking-[0.35em] text-[#c96527]',
+  headingClassName = 'text-xs font-semibold uppercase tracking-[0.35em] text-slate-800',
   description = 'Leave your number and our project manager will call or message you back the same day.',
   descriptionClassName = 'mt-2 text-base text-slate-600',
   buttonLabel = 'Start conversation',
-  buttonClassName = 'inline-flex w-full items-center justify-center rounded-full bg-[#c96527] px-4 py-3 text-sm font-semibold tracking-[0.2em] text-white shadow-lg shadow-[#c96527]/30 transition hover:translate-y-[-1px] hover:brightness-95 focus:outline-none',
+  buttonClassName = 'inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-4 py-3 text-sm font-semibold tracking-[0.2em] text-white shadow-lg shadow-slate-900/15 transition hover:translate-y-[-1px] hover:brightness-95 focus:outline-none',
   source = 'hero',
   compact = false,
   appearance = 'light',
@@ -147,102 +147,124 @@ export default function WhatsAppForm({
         {description ? <p className={descriptionClassName}>{description}</p> : null}
         <form
           onSubmit={handleWhatsAppSubmit}
-          className={`mt-3 space-y-3 ${appearance === 'dark' ? 'text-white' : 'text-slate-700'}`}
+          className={`mt-2 space-y-2 ${appearance === 'dark' ? 'text-white' : 'text-slate-700'}`}
           noValidate
         >
-        <div
-          className={`grid grid-cols-1 gap-2 sm:grid-cols-[4.5rem_1fr_auto_auto] ${
-            minimal
-              ? compact
-                ? 'text-[0.65rem]'
-                : 'text-sm'
-              : 'rounded-[1.5rem] border transition-all focus-within:border-[#1BD741]/60 focus-within:shadow-[0_18px_45px_-28px_rgba(27,215,65,0.85)]'
-          } ${
-            minimal
-              ? 'bg-transparent text-white'
-              : appearance === 'dark'
-                ? 'border-white/15 bg-white/5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
-                : 'border-slate-200 bg-white text-slate-700 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.45)]'
-          } ${compact ? (minimal ? '' : 'px-2.5 py-2 text-[0.7rem]') : minimal ? '' : 'px-4 py-4 text-base'}`}
-        >
-          <label htmlFor={`${idPrefix}-country`} className="sr-only">
-            Country
-          </label>
-          <div className={`relative flex w-full items-center ${compact ? 'text-[0.6rem]' : 'text-xs'}`}>
-            <select
-              id={`${idPrefix}-country`}
-              value={countryCode}
-              onChange={(event) => setCountryCode(event.target.value as CountryDialCode['code'])}
-              className={`w-full appearance-none font-semibold text-left transition focus-visible:outline-none ${
-                minimal
-                  ? 'rounded-full bg-white/15 text-white focus-visible:ring-0'
-                  : `rounded-2xl border focus-visible:ring-2 focus-visible:ring-white/50 ${
-                      appearance === 'dark' ? 'border-white/25 bg-white/10 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
-                    }`
-              } ${compact ? 'px-2 py-1.5 pr-4 text-[0.6rem]' : 'px-3.5 py-2 pr-6 text-[0.85rem]'}`}
-            >
-              {options.map((option) => (
-                <option key={option.code} value={option.code}>
-                  {option.code} (+{option.dialCode})
-                </option>
-              ))}
-            </select>
-          </div>
           <div
-            className={`flex items-center transition-all ${
-              minimal ? 'rounded-full bg-white/15 text-white focus-within:ring-2 focus-within:ring-[#1BD741]/50' : 'rounded-2xl border'
+            className={`flex flex-col gap-2 ${
+              minimal
+                ? compact
+                  ? 'text-[0.65rem]'
+                  : 'text-sm'
+                : 'rounded-[1rem] border transition-all focus-within:border-slate-500 focus-within:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.7)]'
             } ${
               minimal
-                ? ''
+                ? 'bg-transparent text-white'
                 : appearance === 'dark'
-                  ? 'border-white/20 bg-white/10 text-white focus-within:border-[#1BD741]/80 focus-within:shadow-[0_8px_35px_-25px_rgba(27,215,65,0.8)]'
-                  : 'border-slate-100 bg-white text-slate-700 focus-within:border-[#1BD741]/80 focus-within:shadow-[0_12px_35px_-25px_rgba(27,215,65,0.5)]'
-            } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3.5 py-2 text-sm'}`}
+                  ? 'border-white/15 bg-white/5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]'
+                  : 'border-slate-200 bg-white text-slate-700 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.45)]'
+            } ${compact ? (minimal ? '' : 'px-2 py-2 text-[0.7rem]') : minimal ? '' : 'px-4 py-4 text-base'}`}
           >
-            <input
-              id={inputId}
-              name={inputId}
-              type="tel"
-              value={whatsapp}
-              onChange={(event) => setWhatsapp(event.target.value)}
-              placeholder="WhatsApp number"
-              className={`flex-1 bg-transparent focus:outline-none ${appearance === 'dark' ? 'placeholder-white/50 text-white' : 'placeholder-slate-400 text-slate-700'} ${
-                compact ? 'text-[0.75rem]' : 'text-base'
-              }`}
-              aria-label="WhatsApp number"
-              aria-describedby={feedback ? feedbackId : undefined}
-              aria-invalid={isError || undefined}
-              autoComplete="tel-national"
-              inputMode="tel"
-              pattern="[0-9]*"
-            />
-          </div>
-          <label
-            className={`flex items-center justify-between gap-2 text-[0.58rem] ${
-              appearance === 'dark' ? 'text-white/75' : 'text-slate-600'
-            } ${minimal ? 'px-1.5 py-1' : ''}`}
-          >
-            <span className="inline-flex items-center gap-1">
+            <div className="grid grid-cols-[5rem_minmax(0,1fr)_auto] items-center gap-2">
+              <label htmlFor={`${idPrefix}-country`} className="sr-only">
+                Country
+              </label>
+              <div className={`relative flex items-center ${compact ? 'text-[0.6rem]' : 'text-xs'}`}>
+                <select
+                  id={`${idPrefix}-country`}
+                  value={countryCode}
+                  onChange={(event) => setCountryCode(event.target.value as CountryDialCode['code'])}
+                  className={`w-full appearance-none font-semibold text-left transition focus-visible:outline-none ${
+                    minimal
+                      ? 'rounded-full bg-white/15 text-white focus-visible:ring-0'
+                      : `rounded-xl border focus-visible:ring-2 focus-visible:ring-white/50 ${
+                          appearance === 'dark' ? 'border-white/25 bg-white/10 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
+                        }`
+                  } ${compact ? 'px-2 py-1.5 pr-4 text-[0.6rem]' : 'px-3 py-2 pr-5 text-[0.85rem]'}`}
+                >
+                  {options.map((option) => (
+                    <option key={option.code} value={option.code}>
+                      {option.code} (+{option.dialCode})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div
+                className={`flex max-w-[200px] items-center transition-all ${
+                  minimal ? 'rounded-full bg-white/15 text-white focus-within:ring-2 focus-within:ring-slate-300' : 'rounded-xl border'
+                } ${
+                  minimal
+                    ? ''
+                    : appearance === 'dark'
+                      ? 'border-white/20 bg-white/10 text-white focus-within:border-slate-200 focus-within:shadow-[0_8px_35px_-25px_rgba(100,116,139,0.6)]'
+                      : 'border-slate-100 bg-white text-slate-700 focus-within:border-slate-500 focus-within:shadow-[0_12px_35px_-25px_rgba(100,116,139,0.4)]'
+                } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3 py-2 text-sm'}`}
+              >
+                <input
+                  id={inputId}
+                  name={inputId}
+                  type="tel"
+                  value={whatsapp}
+                  onChange={(event) => setWhatsapp(event.target.value)}
+                  placeholder="WhatsApp number"
+                  className={`flex-1 bg-transparent focus:outline-none ${appearance === 'dark' ? 'placeholder-white/50 text-white' : 'placeholder-slate-400 text-slate-700'} ${
+                    compact ? 'text-[0.75rem]' : 'text-base'
+                  }`}
+                  aria-label="WhatsApp number"
+                  aria-describedby={feedback ? feedbackId : undefined}
+                  aria-invalid={isError || undefined}
+                  autoComplete="tel-national"
+                  inputMode="tel"
+                  pattern="[0-9]*"
+                  maxLength={20}
+                  onInput={(event) => {
+                    const target = event.currentTarget
+                    const digitsOnly = target.value.replace(/\D/g, '')
+                    if (digitsOnly !== target.value) {
+                      target.value = digitsOnly
+                    }
+                    setWhatsapp(digitsOnly)
+                  }}
+                  onPaste={(event) => {
+                    const pasted = event.clipboardData.getData('text')
+                    if (!/^\d*$/.test(pasted)) {
+                      event.preventDefault()
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    const allowedKeys = ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End']
+                    if (/^[0-9]$/.test(event.key) || allowedKeys.includes(event.key)) {
+                      return
+                    }
+                    event.preventDefault()
+                  }}
+                />
+              </div>
+              <button type="submit" className={`${buttonClassName} w-full sm:self-stretch`} disabled={isSending}>
+                {isSending ? 'Sending…' : buttonLabel}
+              </button>
+            </div>
+            <label
+              className={`flex items-center gap-2 text-[0.58rem] ${
+                appearance === 'dark' ? 'text-white/75' : 'text-slate-600'
+              } ${minimal ? 'px-1.5 py-1' : ''}`}
+            >
               <input
                 type="checkbox"
                 checked={consent}
                 onChange={(event) => setConsent(event.target.checked)}
-                className="h-3.5 w-3.5 rounded border-slate-300 text-[#c96527] focus:ring-[#c96527]/30"
+                className="h-3.5 w-3.5 rounded border-slate-300 text-slate-900 focus:ring-slate-500/30"
                 aria-required
               />
-              I agree to be contacted
-            </span>
-            <a href="/terms" target="_blank" rel="noreferrer" className="underline">
-              Terms
-            </a>
-          </label>
-          <button type="submit" className={`${buttonClassName} w-full sm:self-stretch`} disabled={isSending}>
-            {isSending ? 'Sending…' : buttonLabel}
-          </button>
-        </div>
-        <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem] text-center text-[0.65rem]">
-          {feedback ? <p className={feedbackClass}>{feedback}</p> : null}
-        </div>
+              <span className="flex-1">I agree to be contacted</span>
+              <a href="/terms" target="_blank" rel="noreferrer" className="underline">
+                Terms and conditions
+              </a>
+            </label>
+          </div>
+          <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem] text-center text-[0.65rem]">
+            {feedback ? <p className={feedbackClass}>{feedback}</p> : null}
+          </div>
         </form>
       </div>
     </div>
