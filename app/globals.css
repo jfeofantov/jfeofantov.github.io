@@ -55,12 +55,19 @@ p {
 .fade-in {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  animation: fade-in 0.85s ease-out forwards;
+  will-change: opacity, transform;
 }
 
-.fade-in-visible {
-  opacity: 1;
-  transform: translateY(0);
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hover-lift {
@@ -89,11 +96,7 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-  .fade-in-visible {
+    animation: none;
     opacity: 1;
     transform: none;
   }

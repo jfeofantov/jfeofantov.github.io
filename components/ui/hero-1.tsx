@@ -20,11 +20,11 @@ export function Hero1() {
               <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-slate-700">
                 We don&apos;t compete on price — only on quality
               </p>
-              <h1 className="text-4xl font-black leading-tight text-slate-900 sm:text-[3rem] lg:text-[3.25rem]">
+              <h1 className="text-3xl font-black leading-tight text-slate-900 sm:text-[3rem] lg:text-[3.25rem]">
                 <span className="block">PAINTING &amp; DECORATING</span>
                 <span className="block text-slate-700 text-3xl">in London</span>
               </h1>
-              <p className="text-[17px] leading-relaxed text-slate-600 max-w-full sm:max-w-[90%]">
+              <p className="text-[15px] leading-relaxed text-slate-600 max-w-full sm:text-[17px] sm:max-w-[90%]">
                 At Prime Coat London, we bring your vision to life with top-quality painting and decorating services. Trusted local decorators
                 deliver outstanding results every time.
               </p>

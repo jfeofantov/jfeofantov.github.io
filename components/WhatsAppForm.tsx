@@ -207,6 +207,7 @@ export default function WhatsAppForm({
                   value={whatsapp}
                   onChange={(event) => setWhatsapp(event.target.value)}
                   placeholder="WhatsApp number"
+                  style={{ fontSize: '16px' }}
                   className={`flex-1 bg-transparent focus:outline-none ${appearance === 'dark' ? 'placeholder-white/50 text-white' : 'placeholder-slate-400 text-slate-700'} ${
                     compact ? 'text-[0.75rem]' : 'text-base'
                   }`}
