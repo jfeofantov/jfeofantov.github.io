@@ -70,14 +70,11 @@ export default function FinalCTA() {
       <div className="hover-lift mx-auto grid max-w-5xl gap-10 rounded-[1.75rem] border border-slate-200 bg-white px-6 py-10 shadow-sm lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
         <FadeIn className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Ready to brief us?</p>
-          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Give us a clear brief — we reply the same day.</h2>
-          <p className="text-base text-slate-600">
-            More space for details: rooms, finishes, timelines, access notes. We&apos;ll reply with a same-day call slot, outline costs, and a
-            short checklist so your survey is efficient.
-          </p>
+          <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Share the essentials. We call back today.</h2>
+          <p className="text-base text-slate-600">Name, contact, postcode, and a quick note are enough to size a survey and lock dates.</p>
           <div className="space-y-2 rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
             <p className="font-semibold text-slate-900">Fastest route: WhatsApp</p>
-            <p>Tap below to share photos or voice notes — we reply in minutes and confirm next steps.</p>
+            <p>Tap below to drop photos or a voice note. We reply in minutes with next steps.</p>
             <a
               href={contactWhatsAppLink}
               target="_blank"
@@ -87,24 +84,6 @@ export default function FinalCTA() {
               💬 Chat on WhatsApp now
             </a>
             <p className="text-xs text-slate-500">Replies within {WHATSAPP_HOURS} — add us manually at {WHATSAPP_NUMBER_DISPLAY}.</p>
-          </div>
-          <ul className="space-y-3 text-sm text-slate-600">
-            <li className="flex items-center gap-3">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">1</span>
-              <span>Tell us where and what you need painted (rooms, colours, finishes).</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">2</span>
-              <span>Jump on a 15-minute strategy call.</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 text-sm font-semibold text-amber-700">3</span>
-              <span>Approve the quote & lock a start date.</span>
-            </li>
-          </ul>
-          <div className="rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
-            Prefer email? Use the form to share the essentials and we&apos;ll follow up within one business day. We still send confirmations
-            via WhatsApp for convenience.
           </div>
         </FadeIn>
         <FadeIn>
@@ -212,7 +191,7 @@ export default function FinalCTA() {
               className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={status === 'sending'}
             >
-              {status === 'sending' ? 'Sending…' : 'Send my project brief'}
+              {status === 'sending' ? 'Sending…' : 'Get my free estimate'}
             </button>
             <p
               className={`mt-3 text-center text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-500'}`}

@@ -151,12 +151,12 @@ export default function WhatsAppForm({
           noValidate
         >
           <div
-            className={`flex flex-col gap-2 ${
+            className={`flex flex-col gap-1.5 ${
               minimal
                 ? compact
                   ? 'text-[0.65rem]'
                   : 'text-sm'
-                : 'rounded-[1rem] border transition-all focus-within:border-slate-500 focus-within:shadow-[0_18px_45px_-28px_rgba(15,23,42,0.7)]'
+                : 'rounded-[0.9rem] border transition-all focus-within:border-slate-500 focus-within:shadow-[0_12px_32px_-24px_rgba(15,23,42,0.7)]'
             } ${
               minimal
                 ? 'bg-transparent text-white'
@@ -165,11 +165,11 @@ export default function WhatsAppForm({
                   : 'border-slate-200 bg-white text-slate-700 shadow-[0_20px_45px_-35px_rgba(15,23,42,0.45)]'
             } ${compact ? (minimal ? '' : 'px-2 py-2 text-[0.7rem]') : minimal ? '' : 'px-4 py-4 text-base'}`}
           >
-            <div className="grid grid-cols-[5rem_minmax(0,1fr)_auto] items-center gap-2">
+            <div className="grid grid-cols-1 items-stretch gap-2 sm:grid-cols-[4.5rem_minmax(0,1.2fr)_12rem] sm:gap-1.5 min-w-0">
               <label htmlFor={`${idPrefix}-country`} className="sr-only">
                 Country
               </label>
-              <div className={`relative flex items-center ${compact ? 'text-[0.6rem]' : 'text-xs'}`}>
+              <div className={`relative flex items-center h-11 ${compact ? 'text-[0.55rem]' : 'text-[0.7rem]'}`}>
                 <select
                   id={`${idPrefix}-country`}
                   value={countryCode}
@@ -180,7 +180,7 @@ export default function WhatsAppForm({
                       : `rounded-xl border focus-visible:ring-2 focus-visible:ring-white/50 ${
                           appearance === 'dark' ? 'border-white/25 bg-white/10 text-white' : 'border-slate-200 bg-slate-50 text-slate-700'
                         }`
-                  } ${compact ? 'px-2 py-1.5 pr-4 text-[0.6rem]' : 'px-3 py-2 pr-5 text-[0.85rem]'}`}
+                  } ${compact ? 'px-2 py-1.5 pr-3 text-[0.55rem]' : 'px-2.5 py-1.5 pr-4 text-[0.8rem]'} h-full`}
                 >
                   {options.map((option) => (
                     <option key={option.code} value={option.code}>
@@ -190,7 +190,7 @@ export default function WhatsAppForm({
                 </select>
               </div>
               <div
-                className={`flex max-w-[200px] items-center transition-all ${
+                className={`flex w-full sm:max-w-full items-center transition-all ${
                   minimal ? 'rounded-full bg-white/15 text-white focus-within:ring-2 focus-within:ring-slate-300' : 'rounded-xl border'
                 } ${
                   minimal
@@ -198,7 +198,7 @@ export default function WhatsAppForm({
                     : appearance === 'dark'
                       ? 'border-white/20 bg-white/10 text-white focus-within:border-slate-200 focus-within:shadow-[0_8px_35px_-25px_rgba(100,116,139,0.6)]'
                       : 'border-slate-100 bg-white text-slate-700 focus-within:border-slate-500 focus-within:shadow-[0_12px_35px_-25px_rgba(100,116,139,0.4)]'
-                } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3 py-2 text-sm'}`}
+                } ${compact ? 'px-2 py-1.5 text-[0.7rem]' : 'px-3 py-1.5 text-sm'}`}
               >
                 <input
                   id={inputId}
@@ -240,27 +240,29 @@ export default function WhatsAppForm({
                   }}
                 />
               </div>
-              <button type="submit" className={`${buttonClassName} w-full sm:self-stretch`} disabled={isSending}>
+              <button
+                type="submit"
+                className={`${buttonClassName} w-full sm:self-stretch h-full px-7 py-2.5 text-sm`}
+                disabled={isSending}
+              >
                 {isSending ? 'Sending…' : buttonLabel}
               </button>
             </div>
-            <label
-              className={`flex items-center gap-2 text-[0.58rem] ${
-                appearance === 'dark' ? 'text-white/75' : 'text-slate-600'
-              } ${minimal ? 'px-1.5 py-1' : ''}`}
-            >
-              <input
-                type="checkbox"
-                checked={consent}
-                onChange={(event) => setConsent(event.target.checked)}
-                className="h-3.5 w-3.5 rounded border-slate-300 text-slate-900 focus:ring-slate-500/30"
-                aria-required
-              />
-              <span className="flex-1">I agree to be contacted</span>
+            <div className={`flex flex-wrap items-center gap-2 text-[0.58rem] ${appearance === 'dark' ? 'text-white/75' : 'text-slate-600'} ${minimal ? 'px-1.5 py-1' : ''}`}>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(event) => setConsent(event.target.checked)}
+                  className="h-3.5 w-3.5 rounded border-slate-300 text-slate-900 focus:ring-slate-500/30"
+                  aria-required
+                />
+                <span className="flex-1">I agree with</span>
+              </label>
               <a href="/terms" target="_blank" rel="noreferrer" className="underline">
                 Terms and conditions
               </a>
-            </label>
+            </div>
           </div>
           <div id={feedbackId} role="status" aria-live="polite" className="min-h-[1.25rem] text-center text-[0.65rem]">
             {feedback ? <p className={feedbackClass}>{feedback}</p> : null}

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import * as React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -100,19 +101,28 @@ export const ImageComparisonSlider = React.forwardRef<HTMLDivElement, ImageCompa
         onTouchStart={handleInteractionStart}
         {...props}
       >
-        <img
+        <Image
           src={rightImage}
           alt={altRight}
           className="pointer-events-none absolute inset-0 h-full w-full object-cover"
           draggable={false}
           loading={loading}
-          decoding="async"
+          fill
+          sizes="(min-width: 1024px) 900px, 100vw"
         />
         <div
           className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden"
           style={{ clipPath: `polygon(0 0, ${sliderPosition}% 0, ${sliderPosition}% 100%, 0 100%)` }}
         >
-          <img src={leftImage} alt={altLeft} className="h-full w-full object-cover" draggable={false} loading={loading} decoding="async" />
+          <Image
+            src={leftImage}
+            alt={altLeft}
+            className="h-full w-full object-cover"
+            draggable={false}
+            loading={loading}
+            fill
+            sizes="(min-width: 1024px) 900px, 100vw"
+          />
         </div>
         <div className="absolute top-0 h-full w-1 cursor-ew-resize" style={{ left: `calc(${sliderPosition}% - 2px)` }}>
           <div className="absolute inset-y-0 w-1 bg-white/60 backdrop-blur-sm" />

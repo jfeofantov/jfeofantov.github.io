@@ -1,54 +1,11 @@
 'use client';
 
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { Phone, ShieldCheck, Timer, BadgeCheck, PiggyBank } from 'lucide-react';
+import { ShieldCheck, Timer, BadgeCheck, PiggyBank } from 'lucide-react';
 import { PHONE_NUMBER_DISPLAY, PHONE_NUMBER_LINK } from '../../lib/contact';
 import WhatsAppForm from '../WhatsAppForm';
 import { ImageComparisonSlider } from './image-comparison-slider';
 
 const CONTACT_EMAIL = 'info@primecoatlondon.co.uk';
-
-const typewriterLocations = ['London', 'Newham', 'Chelsea', 'Kensington'];
-
-function TypewriterLocation() {
-  const [index, setIndex] = useState(0);
-  const [text, setText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const current = typewriterLocations[index % typewriterLocations.length];
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        const next = current.slice(0, text.length + 1);
-        setText(next);
-      } else {
-        const next = current.slice(0, text.length - 1);
-        setText(next);
-        if (next === '') {
-          setIsDeleting(false);
-          setIndex((prev) => (prev + 1) % typewriterLocations.length);
-        }
-      }
-    }, isDeleting ? 80 : 120);
-
-    return () => clearTimeout(timeout);
-  }, [text, isDeleting, index]);
-
-  useEffect(() => {
-    if (!isDeleting && text === typewriterLocations[index % typewriterLocations.length]) {
-      const pause = setTimeout(() => setIsDeleting(true), 1000);
-      return () => clearTimeout(pause);
-    }
-  }, [text, isDeleting, index]);
-
-  return (
-    <span className="inline-flex items-center gap-1 text-slate-700">
-      in <span className="relative inline-block min-w-[90px] font-black text-slate-900">{text}</span>
-      <span className="h-5 w-0.5 animate-pulse bg-slate-900" aria-hidden />
-    </span>
-  );
-}
 
 export function Hero1() {
   return (
@@ -56,17 +13,18 @@ export function Hero1() {
       <div className="pointer-events-none absolute inset-0">
         <div className="spotlight" />
       </div>
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-0 py-0 sm:px-0 sm:py-0 lg:px-0 lg:py-0">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-0 sm:px-6 sm:py-0 lg:px-0 lg:py-0">
         <div className="grid gap-12 lg:gap-20 lg:grid-cols-[60%_40%] lg:items-center px-0 sm:px-0 lg:px-0 py-6 sm:py-8 lg:py-10">
-          <div className="space-y-6">
-            <div className="space-y-3 max-w-3xl">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-slate-700">
+          <div className="space-y-6 min-w-0">
+            <div className="space-y-3 max-w-full sm:max-w-3xl">
+              <p className="text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-slate-700">
                 We don&apos;t compete on price — only on quality
               </p>
               <h1 className="text-4xl font-black leading-tight text-slate-900 sm:text-[3rem] lg:text-[3.25rem]">
-                PAINTING & DECORATING <TypewriterLocation />
+                <span className="block">PAINTING &amp; DECORATING</span>
+                <span className="block text-slate-700 text-3xl">in London</span>
               </h1>
-              <p className="text-[17px] leading-relaxed text-slate-600 max-w-[90%]">
+              <p className="text-[17px] leading-relaxed text-slate-600 max-w-full sm:max-w-[90%]">
                 At Prime Coat London, we bring your vision to life with top-quality painting and decorating services. Trusted local decorators
                 deliver outstanding results every time.
               </p>
@@ -93,7 +51,7 @@ export function Hero1() {
                   <Timer className="h-3.5 w-3.5" aria-hidden />
                 </span>
               </div>
-              <p className="mt-1 text-[12px] text-white/80 whitespace-nowrap">
+              <p className="mt-1 text-[12px] text-white/80 whitespace-normal md:whitespace-nowrap">
                 Leave your number and we&apos;ll contact you instantly — share details or wait for a call.
               </p>
               <div className="mt-2">
@@ -119,7 +77,7 @@ export function Hero1() {
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 min-w-0">
             <div className="overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white p-3">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>

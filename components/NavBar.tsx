@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { PHONE_NUMBER_DISPLAY, PHONE_NUMBER_LINK } from '../lib/contact';
 
 const navLinks = [
   { href: '#offer', label: 'Offer' },
@@ -14,7 +13,7 @@ const navLinks = [
 export default function NavBar() {
   return (
     <header className="sticky top-0 z-40 bg-white text-slate-900 shadow-[0_1px_0_0_rgba(15,23,42,0.08)]">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-8 px-0 py-2 sm:px-0 lg:px-0">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 lg:gap-8 lg:px-0 min-w-0">
         <Link href="/" className="inline-flex items-center gap-2">
           <Image
             src="/logo-reade.png"
@@ -26,7 +25,7 @@ export default function NavBar() {
             priority
           />
         </Link>
-        <nav aria-label="Primary" className="hidden items-center gap-1 text-sm font-semibold text-slate-800 sm:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 text-sm font-semibold text-slate-800 sm:flex min-w-0">
           {navLinks.map((link) => (
             <a
               key={link.href}

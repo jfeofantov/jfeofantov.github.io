@@ -4,23 +4,23 @@ import { buildWhatsAppLink } from '../lib/contact';
 
 const projects = [
   {
-    title: 'Belgravia townhouse refresh',
+    title: 'Belgravia townhouse',
     location: 'SW1',
-    scope: 'Dust-free prep, plaster repairs, colour-drench living spaces',
+    scope: 'Plaster repairs and colour-drench living spaces',
     duration: '8 days',
     before: '/before.JPG',
     after: '/after.JPG'
   },
   {
-    title: 'Chelsea flat handover',
+    title: 'Chelsea flat',
     location: 'SW3',
-    scope: 'Feature walls, woodwork enamel, and snag-free final walk',
+    scope: 'Feature walls, enamel woodwork, snag-free final walk',
     duration: '5 days',
     before: '/before.JPG',
     after: '/after.JPG'
   },
   {
-    title: 'Kensington exterior tidy-up',
+    title: 'Kensington exterior',
     location: 'W8',
     scope: 'Render repair, sash repaint, and ironmongery refresh',
     duration: '6 days',
@@ -37,10 +37,8 @@ export default function Portfolio() {
       <div className="mx-auto max-w-6xl space-y-8">
         <FadeIn className="space-y-3 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Portfolio</p>
-          <h2 className="text-balance text-3xl font-semibold text-slate-900 sm:text-4xl">Recent London painting & decorating work</h2>
-          <p className="text-base text-slate-600">
-            Before-and-after examples from homes and apartments across Zones 1–4. We protect every surface and keep you updated daily.
-          </p>
+          <h2 className="text-balance text-3xl font-semibold text-slate-900 sm:text-4xl">Recent before-and-afters</h2>
+          <p className="text-base text-slate-600">A quick look at the clean handovers clients book us for.</p>
         </FadeIn>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, index) => (

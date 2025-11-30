@@ -5,11 +5,11 @@ import ServiceHighlights from '../components/ServiceHighlights';
 import Portfolio from '../components/Portfolio';
 import LocalSEO from '../components/LocalSEO';
 import Reviews from '../components/Reviews';
-import FAQs from '../components/FAQs';
 import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
 import StickyWhatsAppCTA from '../components/StickyWhatsAppCTA';
 import StructuredData from '../components/StructuredData';
+import NavBar from '../components/NavBar';
 
 export const metadata: Metadata = {
   title: 'Painters & Decorators London | Prime Coat London',
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
+      <NavBar />
       <Hero1 />
       <OfferStack />
       <ServiceHighlights />
-      <Portfolio />
       <LocalSEO />
+      <Portfolio />
       <Reviews />
-      <FAQs />
       <FinalCTA />
       <Footer />
       <StickyWhatsAppCTA />

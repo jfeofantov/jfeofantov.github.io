@@ -3,39 +3,39 @@ import FadeIn from './FadeIn';
 
 const offerings = [
   {
-    title: 'Interior painting & decorating',
-    description: 'Walls, ceilings, trim, and bespoke joinery finished with low-VOC systems matched to your palette.',
-    details: ['Two-coat systems & snag-free handover', 'Colour sampling and sheen recommendations', 'Nightly tidy downs so you can live around us'],
+    title: 'Interiors',
+    description: 'Walls, ceilings, trim, and feature walls finished with clean lines.',
+    details: ['Colour sampling help', 'Low-VOC, low-odour systems'],
     icon: Paintbrush
   },
   {
-    title: 'Plaster & surface repairs',
-    description: 'From skim coats to cornice restoration, we repair surfaces before a brush ever lifts.',
-    details: ['Moisture readings & substrate reports', 'Crack stitching and skim coating', 'Heritage cornice & moulding replication'],
+    title: 'Repairs before paint',
+    description: 'Plaster patches, caulking, and sanding so the finish stays smooth.',
+    details: ['Crack repair & skim coat', 'Dust-free sanding'],
     icon: Hammer
   },
   {
-    title: 'Cabinet & furniture spraying',
-    description: 'Kitchen, wardrobe, and bespoke joinery spraying with lacquer-quality finishes.',
-    details: ['Dedicated spray booth setups', 'Labelled dismantle & reinstall', 'Durable lacquers & enamel systems'],
+    title: 'Spraying & woodwork',
+    description: 'Kitchens, wardrobes, and bespoke joinery sprayed for a factory feel.',
+    details: ['Lacquer-grade finishes', 'Labelled dismantle & reinstall'],
     icon: Sparkles
   },
   {
-    title: 'Wallpaper & feature walls',
-    description: 'Hand-cut wallpaper, mural installations, and colour-drench feature rooms.',
-    details: ['Pattern matching & panel detailing', 'Lining paper & surface prep included', 'Weekend turnarounds available'],
+    title: 'Wallpaper & murals',
+    description: 'Pattern matching and feature walls that sit perfectly square.',
+    details: ['Lining paper included', 'Weekend turnarounds'],
     icon: Brush
   },
   {
-    title: 'Exterior refresh & protection',
-    description: 'Render, stucco, windows, and ironmongery restored with weather-ready coatings.',
-    details: ['Scaffold & access coordinated', 'Flexible working hours for facades', 'Masonry, timber, and metal systems'],
+    title: 'Exteriors',
+    description: 'Render, sash windows, and metalwork weather-protected for years.',
+    details: ['Access coordinated', 'Masonry, timber, and metal systems'],
     icon: Building
   },
   {
-    title: 'Moisture & mould solutions',
-    description: 'Breathable paints, anti-mould primers, and ventilation upgrades for kitchens, baths & basements.',
-    details: ['Root-cause moisture diagnostics', 'Anti-microbial coatings', 'Aftercare guidance & maintenance visits'],
+    title: 'Damp & mould',
+    description: 'Breathable paints and anti-mould primers for kitchens, baths, and basements.',
+    details: ['Moisture checks', 'Aftercare guidance'],
     icon: Droplets
   }
 ];
@@ -46,11 +46,8 @@ export default function ServiceHighlights() {
       <div className="mx-auto max-w-6xl space-y-10">
         <FadeIn className="space-y-4 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Services</p>
-          <h2 className="text-balance text-3xl font-semibold text-slate-900 sm:text-4xl">Painters & decorators in London for every finish</h2>
-          <p className="text-base text-slate-600">
-            From plaster repairs to final touch-ups, Prime Coat London sends tidy, DBS-checked crews so you do not have to juggle multiple
-            trades.
-          </p>
+          <h2 className="text-balance text-3xl font-semibold text-slate-900 sm:text-4xl">What we paint (and protect) daily.</h2>
+          <p className="text-base text-slate-600">Select the finish you need and we will size the visit and lock a start date.</p>
         </FadeIn>
         <div className="grid gap-6 md:grid-cols-2">
           {offerings.map(({ title, description, details, icon: Icon }, index) => (

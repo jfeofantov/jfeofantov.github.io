@@ -9,11 +9,9 @@ export default function Reviews() {
     <section id="reviews" className="section-padding bg-slate-50">
       <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <FadeIn className="hover-lift rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Social proof</p>
-          <h2 className="mt-3 text-3xl font-semibold text-slate-900">Homeowners & property teams rate us 5/5</h2>
-          <p className="mt-2 text-sm text-slate-600">
-            Every review comes with dated WhatsApp transcripts and photo logs. You are welcome to speak with our past clients before booking.
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Satisfaction guaranteed</p>
+          <h2 className="mt-3 text-3xl font-semibold text-slate-900">Rated 5/5 by homeowners & property teams</h2>
+          <p className="mt-2 text-sm text-slate-600">Written warranties and references available before you book.</p>
           <div className="mt-6 flex items-center gap-2 text-amber-400">
             {Array.from({ length: 5 }).map((_, index) => (
               <Star key={index} className="h-5 w-5 fill-current" aria-hidden />
@@ -30,7 +28,7 @@ export default function Reviews() {
           </ul>
         </FadeIn>
         <div className="grid gap-4 sm:grid-cols-2">
-          {reviews.map((review, index) => (
+          {reviews.slice(0, 3).map((review, index) => (
             <FadeIn key={review.name} delay={index * 60} className="h-full">
               <article className="hover-lift flex h-full flex-col rounded-[1.25rem] border border-slate-200 bg-white p-5 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">{review.role}</p>
