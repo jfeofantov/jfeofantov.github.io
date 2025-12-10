@@ -1,69 +1,68 @@
-import { BadgeCheck, CalendarClock, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, CalendarClock, ClipboardCheck, ShieldCheck } from 'lucide-react';
 import FadeIn from './FadeIn';
 
-const offerItems = [
+const workflow = [
   {
-    title: 'Same-week surveys',
-    description: 'We book your walk-through and return an estimate within 24 hours.',
+    title: 'Plan the visit',
+    description: 'Same-week survey, moisture checks, and a fixed quote by the next day.',
     icon: CalendarClock
   },
   {
-    title: 'Mess-free prep',
-    description: 'Floors, furniture, and artwork are labelled and protected first.',
+    title: 'Protect & paint',
+    description: 'Crew wraps furniture, labels storage, and shares midday progress snaps.',
     icon: ShieldCheck
   },
   {
-    title: 'On-time crews',
-    description: 'Respectful teams that communicate arrivals and wrap times daily.',
-    icon: CheckCircle2
-  },
-  {
-    title: 'Fair pricing',
-    description: 'Value-based proposals with coatings and sheens listed upfront.',
-    icon: BadgeCheck
+    title: 'Daily wrap + handover',
+    description: 'WhatsApp snag list, final walkthrough, and warranty pack delivered.',
+    icon: ClipboardCheck
   }
 ];
-
-const checklist = ['Fixed-price proposals', 'Trade paint discounts', 'Fully insured & DBS checked'];
 
 export default function OfferStack() {
   return (
     <section id="offer" className="section-padding bg-white">
-      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
-        <FadeIn className="space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-amber-600">Why choose us</p>
-          <h2 className="text-balance text-3xl font-semibold text-slate-900 sm:text-4xl">Stress-free, mess-free painting.</h2>
-          <p className="text-base text-slate-600">Local crews, tidy prep, and steady communication until handover.</p>
-          <ul className="space-y-2 text-sm text-slate-700">
-            {checklist.map((item) => (
-              <li key={item} className="flex items-center gap-3">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-200 text-xs font-semibold text-slate-900">
-                  ✓
-                </span>
-                <span>{item}</span>
+      <div className="mx-auto max-w-6xl">
+        <FadeIn className="space-y-6 rounded-[1.75rem] bg-white p-6 shadow-sm lg:p-8">
+          <header className="space-y-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-slate-500">How it runs</p>
+            <h3 className="text-2xl font-semibold text-slate-900 sm:text-[2.35rem]">Three clean phases, one point of contact.</h3>
+            <p className="text-sm text-slate-600">Survey, daily updates, and a tidy handover—condensed into one predictable plan.</p>
+          </header>
+          <ol className="grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
+            {workflow.map(({ title, description, icon: Icon }, index) => (
+              <li
+                key={title}
+                className="fade-in flex flex-col gap-2 rounded-2xl bg-white px-4 py-4 text-sm shadow-[0_25px_60px_-55px_rgba(15,23,42,0.6)]"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-900 text-white">
+                    <Icon className="h-4 w-4" aria-hidden />
+                  </span>
+                  <div>
+                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-slate-500">Step {index + 1}</p>
+                    <p className="text-base font-semibold text-slate-900">{title}</p>
+                  </div>
+                </div>
+                <p className="text-slate-600">{description}</p>
               </li>
             ))}
-          </ul>
-          <a
-            href="#contact"
-            className="inline-flex w-full items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white shadow-md transition hover:bg-amber-600 sm:w-auto"
-          >
-            Get a free estimate
-          </a>
+          </ol>
+          <div className="rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-700">
+            <p className="flex items-center gap-2 text-base font-semibold text-slate-900">
+              <ShieldCheck className="h-5 w-5 text-amber-500" aria-hidden />
+              Quality promise
+            </p>
+            <p className="mt-1">
+              Fixed-price proposals, verified crew lists, and a written warranty after handover—exactly the same standards we lead with in the hero section.
+            </p>
+            <p className="mt-2 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-slate-500">
+              <BadgeCheck className="h-4 w-4 text-slate-700" aria-hidden />
+              Fully insured · DBS checked
+            </p>
+          </div>
         </FadeIn>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-          {offerItems.map(({ title, description, icon: Icon }, index) => (
-            <FadeIn key={title} delay={index * 70}>
-              <article className="hover-lift h-full rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
-                  <Icon className="h-5 w-5" aria-hidden />
-                </span>
-                <h3 className="mt-4 text-lg font-semibold text-slate-900">{title}</h3>
-                <p className="mt-2 text-sm text-slate-600">{description}</p>
-              </article>
-            </FadeIn>
-          ))}
-        </div>
       </div>
     </section>
   );
