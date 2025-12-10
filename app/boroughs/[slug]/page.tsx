@@ -5,8 +5,12 @@ import { ArrowLeft, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { boroughPages, getBoroughBySlug } from '../../../lib/boroughs';
 import { buildWhatsAppLink, PHONE_NUMBER_DISPLAY, PHONE_NUMBER_LINK } from '../../../lib/contact';
 
+type RouteParams = {
+  slug: string;
+};
+
 type Props = {
-  params: { slug: string };
+  params: Promise<RouteParams>;
 };
 
 export async function generateStaticParams() {
@@ -14,7 +18,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const borough = getBoroughBySlug(params.slug);
+  const { slug } = await params;
+  const borough = getBoroughBySlug(slug);
   if (!borough) {
     return {
       title: 'Prime Coat London',
@@ -31,8 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function BoroughPage({ params }: Props) {
-  const borough = getBoroughBySlug(params.slug);
+export default async function BoroughPage({ params }: Props) {
+  const { slug } = await params;
+  const borough = getBoroughBySlug(slug);
 
   if (!borough) {
     notFound();
