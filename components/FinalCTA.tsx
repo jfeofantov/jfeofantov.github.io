@@ -66,20 +66,20 @@ export default function FinalCTA() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-slate-50/70">
-      <div className="hover-lift mx-auto grid max-w-5xl gap-10 rounded-[1.75rem] border border-slate-200 bg-white px-6 py-10 shadow-sm lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
+    <section id="contact" className="section-padding bg-slate-50">
+      <div className="hover-lift mx-auto grid max-w-5xl gap-10 rounded-[1.75rem] border border-slate-200 bg-white px-6 py-10 shadow-lg lg:grid-cols-[0.9fr_1.1fr] lg:px-10">
         <FadeIn className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-500">Ready to brief us?</p>
           <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Share the essentials. We call back today.</h2>
           <p className="text-base text-slate-600">Name, contact, postcode, and a quick note are enough to size a survey and lock dates.</p>
-          <div className="space-y-2 rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 text-sm text-slate-600">
+          <div className="space-y-2 rounded-[1.5rem] border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">
             <p className="font-semibold text-slate-900">Fastest route: WhatsApp</p>
             <p>Tap below to drop photos or a voice note. We reply in minutes with next steps.</p>
             <a
               href={contactWhatsAppLink}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1BD741] px-4 py-2 text-sm font-semibold text-slate-900 transition hover:brightness-95"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
               💬 Chat on WhatsApp now
             </a>
@@ -89,7 +89,7 @@ export default function FinalCTA() {
         <FadeIn>
           <form
             onSubmit={handleSubmit}
-            className="rounded-[1.75rem] border border-white/80 bg-white/95 p-6 shadow-[0_35px_95px_-70px_rgba(15,23,42,0.85)]"
+            className="rounded-[1.75rem] border border-slate-100 bg-white/95 p-6 shadow-[0_35px_95px_-70px_rgba(15,23,42,0.35)]"
             noValidate
           >
             <div className="flex flex-col gap-2 text-slate-900">
@@ -101,7 +101,7 @@ export default function FinalCTA() {
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 placeholder="Your name"
                 required
               />
@@ -115,7 +115,7 @@ export default function FinalCTA() {
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 placeholder="hello@primecoatlondon.co.uk"
                 required
               />
@@ -130,7 +130,7 @@ export default function FinalCTA() {
                   name="propertyType"
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-slate-900"
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 >
                   <option value="">Select</option>
                   <option>Apartment / flat</option>
@@ -149,7 +149,7 @@ export default function FinalCTA() {
                   name="timeline"
                   value={timeline}
                   onChange={(e) => setTimeline(e.target.value)}
-                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-slate-900"
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 >
                   <option value="">Select</option>
                   <option>ASAP (this week)</option>
@@ -168,7 +168,7 @@ export default function FinalCTA() {
                 name="postcode"
                 value={postcode}
                 onChange={(e) => setPostcode(e.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 placeholder="SW1, W8, E14..."
               />
             </div>
@@ -181,22 +181,19 @@ export default function FinalCTA() {
                 name="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder-slate-400 outline-none focus:border-slate-900"
+                className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
                 placeholder="Room counts, finishes, timing, budget..."
                 rows={5}
               />
             </div>
             <button
               type="submit"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-amber-500 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-amber-600 disabled:cursor-not-allowed disabled:opacity-60"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
               disabled={status === 'sending'}
             >
               {status === 'sending' ? 'Sending…' : 'Get my free estimate'}
             </button>
-            <p
-              className={`mt-3 text-center text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-500'}`}
-              aria-live="polite"
-            >
+            <p className={`mt-3 text-center text-sm ${status === 'success' ? 'text-emerald-600' : 'text-rose-500'}`} aria-live="polite">
               {feedback}
             </p>
           </form>

@@ -9,8 +9,11 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: '#0f172a',
-          accent: '#f97316'
+          DEFAULT: '#0b0d11',
+          ink: '#0b0d11',
+          accent: '#EA6020',
+          stone: '#f6f4f0',
+          warm: '#b8b1a7'
         }
       },
       boxShadow: {
